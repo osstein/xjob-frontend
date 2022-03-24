@@ -1,38 +1,79 @@
-.App {
-  text-align: center;
+@import url("https://use.typekit.net/zbs5tqq.css");
+/*Logo font: font-family: battery-park, sans-serif; font-weight: 400; font-style: normal; */
+/*Primary Header Font: font-family: burnaby-stencil, sans-serif; font-weight: 400; font-style: normal; */
+/*Text font: font-family: rama-gothic-m, sans-serif;  font-weight: 400; font-style: normal; */
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: rama-gothic-m, sans-serif;
+  font-size: 30px;
+  font-weight: 600;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header {
+  width: 100%;
+  height: 200px;
+  background-color: #ffea00;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  align-items: center;
+  border-bottom: #000 10px solid;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header,
+footer {
+  padding: 0px clamp(15px, 25vw, 150px);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1 {
+  font-size: 60px;
+  font-family: burnaby-stencil, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+h2 {
+  font-size: 40px;
+  font-family: burnaby-stencil, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+h3 {
+  font-size: 35px;
+  font-family: burnaby-stencil, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+h4 {
+  font-size: 30px;
+  font-family: burnaby-stencil, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+h5 {
+  font-size: 25px;
+  font-family: burnaby-stencil, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+h6 {
+  font-size: 20px;
+  font-family: burnaby-stencil, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+header h1 {
+  font-size: 80px;
+  font-family: battery-park, sans-serif;
+}
+
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  background-color: #ffea00;
+  min-height: 100vh;
 }
