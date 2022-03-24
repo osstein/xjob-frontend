@@ -5,7 +5,14 @@ const Episodes = () => {
 
   return (
     <main>
-      <p>Episodes</p>
+      <aside className={"catalog"}>
+        <h2>Avsnitt</h2>
+        <nav className="catalog-nav"></nav>
+      </aside>
+      <section className={"main-section"}>
+        <h2>Lyssna</h2>
+        <p></p>
+      </section>
     </main>
   );
 };

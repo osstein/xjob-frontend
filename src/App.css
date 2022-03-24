@@ -65,9 +65,41 @@ h6 {
   text-transform: uppercase;
 }
 
-header h1 {
+header h1 a {
   font-size: 80px;
   font-family: battery-park, sans-serif;
+  text-decoration: none;
+  color: #000;
+}
+
+header nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  column-gap: 40px;
+}
+
+header nav ul li a {
+  color: #000;
+  text-decoration: none;
+}
+.cartIcon {
+  position: relative;
+}
+.cartAmount {
+  position: absolute;
+  left: calc(100% + 15px);
+  top: 2px;
+  color: #ffea00;
+  background-color: #000;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 main {
