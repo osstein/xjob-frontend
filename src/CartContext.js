@@ -8,8 +8,8 @@ export function CartFunctionality({ children }) {
     { "id": 123, "Price": 123 }
   ]);
 
-  const addItem = (id, price) => {
-    setCartItems((prevState) => [...prevState, { id, price }]);
+  const addItem = (id, productId, price, amount, typeId, productSize, productColor, productNumber) => {
+    setCartItems((prevState) => [...prevState, { id, productId, price, amount, typeId, productSize, productColor, productNumber }]);
   };
 
   return <CartContext.Provider value={{ isCartItems, addItem }}>{children}</CartContext.Provider>;
