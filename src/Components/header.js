@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import CartContext from "../CartContext";
 
+
 const Header = () => {
   const { isCartItems } = useContext(CartContext);
   return (

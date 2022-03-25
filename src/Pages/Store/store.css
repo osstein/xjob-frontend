@@ -3,12 +3,25 @@
   min-height: 60px;
   background-color: #000;
   color: #ffea00;
-  text-align: center;
   padding: 0px 0px 10px 0px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   position: relative;
+}
+
+.catalog h2 {
+  text-align: center;
+  width: 100%;
+}
+.catalog h3 {
+  text-align: center;
+  width: 100%;
+}
+
+.catalog .catalog-nav {
+  display: none;
+  padding: 25px clamp(15px, 25vw, 150px);
 }
 
 .catalog:hover .catalog-nav {
@@ -19,8 +32,72 @@
   min-height: 200px;
   background-color: #000;
   color: #ffea00;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  display: flex;
+}
+.catalog .catalog-nav div {
+  display: flex;
+  flex-direction: column;
+}
+.catalog:hover .catalog-nav a {
+  text-decoration: none;
+  color: #ffea00;
 }
 
 .main-section {
-  padding: 150px 0px;
+  padding: clamp(15px, 25vw, 150px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 75px;
+  justify-content: center;
+}
+.main-section h2 {
+  text-align: center;
+  width: 100%;
+}
+
+.linkStoreItem {
+  text-decoration: none;
+}
+
+.StoreItem {
+  width: 300px;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: row;
+
+}
+
+.StoreItem img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  background-color: #000;
+  display: none;
+}
+
+.StoreItem img:first-of-type {
+  display: block;
+}
+
+.StoreItem h4 {
+  display: block;
+  max-width: 80%;
+  color: #000;
+
+
+}
+.StoreItem p {
+  max-width: 20%;
+  text-align: center;
+  display: block;
+  color: #000;
+
 }

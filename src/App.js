@@ -5,26 +5,29 @@ import Episodes from "./Pages/Episodes/episodes";
 import Store from "./Pages/Store/store";
 import Header from "./Components/header";
 import Checkout from "./Pages/Checkout/checkout";
-import {CartFunctionality} from "./CartContext";
+import Product from "./Pages/Product/product";
+import { CartProvider } from "./CartContext";
 
 function App() {
-  
   return (
     <div className="App">
-      <CartFunctionality>
-      <Header/>
-      <Router>
-        <Routes>
-          <Route exact path="" element={<Home />}></Route>
-          <Route exact path="Handla/" element={<Store />}></Route>
-          <Route exact path="Handla/:CategoryId" element={<Store />}></Route>
-          <Route exact path="Lyssna" element={<Episodes />}></Route>
-          <Route exact path="Betala" element={<Checkout />}></Route>
-          {/* <Route path="/recipe/:recipeid" element={<Recipe />}></Route> */}
-        </Routes>
-      </Router>
-      <footer></footer>
-      </CartFunctionality>
+      <CartProvider>
+        <Header />
+        <Router>
+          <Routes>
+            <Route exact path="" element={<Home />}></Route>
+            <Route exact path="Handla/" element={<Store />}></Route>
+            <Route exact path="Handla/:CategoryId" element={<Store />}></Route>
+            <Route exact path="Lyssna" element={<Episodes />}></Route>
+            <Route exact path="Betala" element={<Checkout />}></Route>
+            <Route exact path="Produkt/:ProductId" element={<Product />}></Route>
+            {/* <Route path="/recipe/:recipeid" element={<Recipe />}></Route> */}
+          </Routes>
+        </Router>
+        <footer>
+          <p>footer</p>
+        </footer>
+      </CartProvider>
     </div>
   );
 }
