@@ -1,8 +1,9 @@
-import "./store.css";
+
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Store = () => {
+  require("./store.css");
   let { CategoryId } = useParams();
   const [isProducts, setProducts] = useState([]);
   const [isCategories, setCategories] = useState([]);
@@ -96,7 +97,6 @@ const Store = () => {
       </aside>
       <section className={"main-section"}>
         <h2>Produkter</h2>
-        <p>{isProducts.name}</p>
         {isProducts
           .filter((q) => {
             if (CategoryId === undefined) {
@@ -109,7 +109,7 @@ const Store = () => {
           })
           /* .sort((a, b) => b.price - a.price) */
           .map((item) => (
-            <a className="linkStoreItem" href={"/Product" + item.id}>
+            <a className="linkStoreItem" href={"/Produkt/" + item.id}>
               <article className="StoreItem" key={item.id}>
                 {isImages.map((img) => {
                   if (img.productId === item.id) {

@@ -12,14 +12,14 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <a href="Lyssna">Lyssna</a>
+            <a href="/Lyssna">Lyssna</a>
           </li>
           <li>
-            <a href="Handla">Handla</a>
+            <a href="/Handla">Handla</a>
           </li>
 
           <li>
-            <a href="Betala" className="cartIcon">
+            <a href="/Betala" className="cartIcon">
               Betala
               <span className={"cartAmount"}> {isCartItems.length}</span>
             </a>
