@@ -161,13 +161,10 @@ const Product = () => {
             })
             .map((img, i) => {
               if (img.productId === isProduct.id) {
-                console.log(i);
-
                 return (
                   <img
                     key={img.id}
                     onMouseOver={() => setScrollImage(i * 500)}
-                    onMouseOut={() => setScrollImage(0)}
                     src={"https://localhost:7207/" + img.imagePath}
                     alt={img.imageAlt}
                   />
@@ -183,10 +180,61 @@ const Product = () => {
           <h2>{isProduct.name}</h2>
           <p>{isProduct.description}</p>
           <br />
-          <p>PRIS: {isProduct.price}sek </p>
-          {(isProduct.discount / 100) * isProduct.price}
-          <p>MOMS: {(isProduct.vat / 100) * isProduct.price}sek</p>
-          <p>Art. Nr.- {isProduct.productNumber}</p>
+
+          {isProduct.discount === 0 ? (
+            <p>PRIS: {isProduct.price}sek</p>
+          ) : (
+            <p>
+              PRIS: <span>{((100 - isProduct.discount) / 100) * isProduct.price}sek - </span>
+              <span className="line-through">{isProduct.price}sek</span>
+            </p>
+          )}
+
+          {isProduct.discount === 0 ? (
+            <p>MOMS: {(isProduct.vat / 100) * isProduct.price}sek</p>
+          ) : (
+            <p>
+              Moms:{" "}
+              <span>
+                {((100 - isProduct.discount) / 100) * isProduct.price * (isProduct.vat / 100)}sek -{" "}
+              </span>
+              <span className="line-through">{isProduct.price * (isProduct.vat / 100)}sek</span>
+            </p>
+          )}
+          <p>Artikel. Nr.- {isProduct.productNumber}</p>
+          <select>
+            <option>Choose</option>
+            {isTypes
+              .filter((q) => {
+                if (ProductId === undefined) {
+                  return q;
+                } else if (q.productId.toString() === ProductId) {
+                  return q;
+                } else {
+                  return "";
+                }
+              })
+              .map((type) => {
+                return isColors.map((color) => {
+                  if (type.productColorId === color.id) {
+                    return isSizes.map((size) => {
+                      if (type.productSizeId === size.id) {
+                        return (
+                          <option style={{background: `${color.colorCode}40`}} value={type.id}>
+                            
+                            {color.color} - {size.size}
+                          </option>
+                        )
+                      } else {
+                        return ""
+                      }
+                    });
+                  } else {
+                    return ""
+                  }
+                })
+              })}
+          </select>
         </div>
       </div>
     </main>

@@ -1,27 +1,33 @@
 main {
-    background-color: #ffea00;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
-    gap: 100px;
-    padding-top: 100px;
+  background-color: #ffea00;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 100px;
+  padding-top: 100px;
 }
+
+.line-through {
+  text-decoration: line-through;
+  text-decoration-color: #ff0000;
+}
+
 .product-images {
   display: flex;
   justify-content: flex-start;
 }
 .thumbnails {
-  overflow: auto;
+  overflow-y: auto;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: center;
   height: 500px;
+  overflow-x: hidden;
 }
 .thumbnails img {
-  
   width: 100px;
   display: block;
   object-fit: cover;
@@ -50,6 +56,11 @@ main {
   object-position: center;
 }
 .product-about {
-    min-height: 500px;
-    min-width: 600px;
+  min-height: 500px;
+  min-width: 600px;
+}
+
+
+option:hover {
+  background-color: #ff0000;
 }
