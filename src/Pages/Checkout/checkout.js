@@ -55,6 +55,12 @@ const Checkout = () => {
         .catch((res) => console.log(res));
     }
   };
+  /* const priceTotal = () => {
+    let cart = JSON.parse(localStorage.getItem("Shopping"));
+    for (let i = 0; i < cart.length; i++) {
+
+    }
+  }; */
 
   return (
     <main>
@@ -62,17 +68,38 @@ const Checkout = () => {
         <div className="checkout-half">
           <h2>Dina Uppgifter:</h2>
           <form>
-            <input name="FirstName" onChange={(e) => setFirstName(e.target.value)} />
-            <input name="LastName" onChange={(e) => setLastName(e.target.value)} />
-            <input name="Email" onChange={(e) => setEmail(e.target.value)} />
-            <input name="Phone" onChange={(e) => setPhone(e.target.value)} />
-            <input name="Adress" onChange={(e) => setAdress(e.target.value)} />
-            <input name="Zip" onChange={(e) => setZip(e.target.value)} />
-            <input name="City" onChange={(e) => setCity(e.target.value)} />
-            <input name="DiscountCode" onChange={(e) => setDiscountCode(e.target.value)} />
-            <input name="PaymentMethod" onChange={(e) => setPaymentMethod(e.target.value)} />
             <input
-            value="Skicka"
+              placeholder="Förnamn"
+              name="FirstName"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <input
+              placeholder="Efternamn"
+              name="LastName"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <input placeholder="Epost" name="Email" onChange={(e) => setEmail(e.target.value)} />
+            <input
+              placeholder="Telefonnummer"
+              name="Phone"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <input placeholder="Adress" name="Adress" onChange={(e) => setAdress(e.target.value)} />
+            <input placeholder="Postkod" name="Zip" onChange={(e) => setZip(e.target.value)} />
+            <input placeholder="Stad" name="City" onChange={(e) => setCity(e.target.value)} />
+            <input
+              placeholder="Rabattkod"
+              name="DiscountCode"
+              onChange={(e) => setDiscountCode(e.target.value)}
+            />
+            <select name="PaymentMethod" onChange={(e) => setPaymentMethod(e.target.value)}>
+              <option value="PaperBill">Faktura</option>
+              <option value="Swish">Swish</option>
+              <option value="CreditCard">Kort</option>
+            </select>
+
+            <input
+              value="Skicka"
               type="button"
               name="submitButton"
               onClick={(e) => {
@@ -84,17 +111,21 @@ const Checkout = () => {
         </div>
         <div className="checkout-half">
           <h2>Varukorg:</h2>
+
           {isCartItems.map((cart, i) => {
             return (
               <article key={i} className="cart-item">
                 <h3>{cart.name}</h3>
                 <p>
-                  {cart.productColor} - {cart.price}
+                  {cart.productColor} -{cart.amount}st - {cart.price * cart.amount}
                 </p>
               </article>
             );
           })}
-
+          <p style={{ "textAlign": "right" }}>Summa:</p>
+          <p style={{ "textAlign": "right" }}>Moms:</p>
+          <p style={{ "textAlign": "right" }}>Rabatt:</p>
+          <br></br>
           {isCartItems.length > 0 ? (
             <button className="clear-cart" onClick={() => clearCart()}>
               Töm Varukorgen

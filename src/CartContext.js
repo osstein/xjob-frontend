@@ -1,4 +1,3 @@
-
 import { createContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
@@ -8,7 +7,6 @@ export function CartProvider({ children }) {
 
   const store = () => {
     localStorage.setItem("Shopping", JSON.stringify(isCartItems));
-    console.log( localStorage.getItem("Shopping"));
   };
 
   const addItem = (
@@ -21,13 +19,34 @@ export function CartProvider({ children }) {
     productColor,
     productNumber
   ) => {
+    //Set initial
     setCartItems(JSON.parse(localStorage.getItem("Shopping")));
+    // Sätt förtsta item alt. höj antalet om objektet redan finns alt. lägg till objektet i listan
+    let o = 0;
+    let cart = isCartItems;
+    if (isCartItems.length === 0) {
+      setCartItems((prevState) => [
+        ...prevState,
+        { name, productId, price, amount, typeId, productSize, productColor, productNumber },
+      ]);
+    } else {
+      for (let i = 0; i < isCartItems.length; i++) {
+        if (productId === cart[i].productId && typeId === cart[i].typeId) {
+          cart[i].amount = cart[i].amount + 1;
+          setCartItems(cart);
+          o = o + 1;
+        }
+      }
+      if (o === 0) {
+        setCartItems((prevState) => [
+          ...prevState,
+          { name, productId, price, amount, typeId, productSize, productColor, productNumber },
+        ]);
+      }
+      o = 0;
+    }
 
-    setCartItems((prevState) => [
-      ...prevState,
-      { name, productId, price, amount, typeId, productSize, productColor, productNumber },
-    ]);
-
+    // Lagra i localstorage
     store();
   };
 
