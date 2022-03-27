@@ -1,6 +1,6 @@
-
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 const Store = () => {
   require("./store.css");
@@ -80,15 +80,15 @@ const Store = () => {
         <nav className="catalog-nav">
           <div>
             <h3>
-              <a href="/handla">Visa alla</a>
+              <NavLink to="/handla">Visa alla</NavLink>
             </h3>
           </div>
           {isCategories.map((item) => (
-            <div>
+            <div key={item.id}>
               <h4>{item.category}</h4>
               {item.catalogSubCategories.map((s) => (
                 <p key={s.id}>
-                  <a href={"/handla/" + s.id}>{s.category}</a>
+                  <NavLink to={"/handla/" + s.id}>{s.category}</NavLink>
                 </p>
               ))}
             </div>
@@ -109,8 +109,8 @@ const Store = () => {
           })
           /* .sort((a, b) => b.price - a.price) */
           .map((item) => (
-            <a className="linkStoreItem" href={"/Produkt/" + item.id}>
-              <article className="StoreItem" key={item.id}>
+            <NavLink key={item.id} className="linkStoreItem" to={"/Produkt/" + item.id}>
+              <article className="StoreItem" >
                 {isImages.map((img) => {
                   if (img.productId === item.id) {
                     return (
@@ -128,7 +128,7 @@ const Store = () => {
                 <h4>{item.name}</h4>
                 <p>{item.price}</p>
               </article>
-            </a>
+            </NavLink>
           ))}
       </section>
     </main>

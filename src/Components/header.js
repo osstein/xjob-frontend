@@ -1,28 +1,33 @@
 import { useContext } from "react";
 import CartContext from "../CartContext";
-
+import {  NavLink } from "react-router-dom";
 
 const Header = () => {
   const { isCartItems } = useContext(CartContext);
   return (
     <header>
       <h1>
-        <a href="/">BashPodden</a>
+        <NavLink to="/">BashPodden</NavLink>
       </h1>
+
       <nav>
         <ul>
           <li>
-            <a href="/Lyssna">Lyssna</a>
+            <NavLink to="/Lyssna" className="cartIcon">
+              Lyssna
+            </NavLink>
           </li>
           <li>
-            <a href="/Handla">Handla</a>
+            <NavLink to="/Handla" className="cartIcon">
+              Handla
+            </NavLink>
           </li>
 
           <li>
-            <a href="/Betala" className="cartIcon">
+            <NavLink to="/Betala" className="cartIcon">
               Betala
               <span className={"cartAmount"}> {isCartItems.length}</span>
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>

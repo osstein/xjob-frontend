@@ -1,5 +1,5 @@
 import "./App.css";
-import Home from "./Pages/home";
+import Home from "./Pages/Home/home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Episodes from "./Pages/Episodes/episodes";
 import Store from "./Pages/Store/store";
@@ -9,13 +9,16 @@ import Product from "./Pages/Product/product";
 import { CartProvider } from "./CartContext";
 
 function App() {
+
+  window.onload = localStorage.setItem("ShoppingCart", JSON.stringify("oldItems"))
   return (
     <div className="App">
-      <CartProvider>
-        <Header />
-        <Router>
+      <Router>
+        {" "}
+        <CartProvider>
+          <Header />
           <Routes>
-            <Route exact path="" element={<Home />}></Route>
+            <Route exact path="/" element={<Home />}></Route>
             <Route exact path="Handla/" element={<Store />}></Route>
             <Route exact path="Handla/:CategoryId" element={<Store />}></Route>
             <Route exact path="Lyssna" element={<Episodes />}></Route>
@@ -23,11 +26,11 @@ function App() {
             <Route exact path="Produkt/:ProductId" element={<Product />}></Route>
             {/* <Route path="/recipe/:recipeid" element={<Recipe />}></Route> */}
           </Routes>
-        </Router>
-        <footer>
-          <p>footer</p>
-        </footer>
-      </CartProvider>
+          <footer>
+            <p>footer</p>
+          </footer>
+        </CartProvider>
+      </Router>
     </div>
   );
 }

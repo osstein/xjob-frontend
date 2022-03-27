@@ -1,15 +1,18 @@
-import { createContext, useState } from "react";
+
+import { createContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [isCartItems, setCartItems] = useState([
-    { id: 213, Price: 123 },
-    { id: 123, Price: 123 },
-  ]);
+  const [isCartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("Shopping")) || []);
+
+  const store = () => {
+    localStorage.setItem("Shopping", JSON.stringify(isCartItems));
+    console.log( localStorage.getItem("Shopping"));
+  };
 
   const addItem = (
-    id,
+    name,
     productId,
     price,
     amount,
@@ -18,19 +21,30 @@ export function CartProvider({ children }) {
     productColor,
     productNumber
   ) => {
-   /*  for (let i = 0; i < isCartItems.length; i++) {
-      if (id == isCartItems[i].id && isCartItems[i].typeId === typeId) {
-        isCartItems[i].amount = isCartItems[i].amount + 1;
-      }
-    } */
+    setCartItems(JSON.parse(localStorage.getItem("Shopping")));
 
     setCartItems((prevState) => [
       ...prevState,
-      { id, productId, price, amount, typeId, productSize, productColor, productNumber },
+      { name, productId, price, amount, typeId, productSize, productColor, productNumber },
     ]);
+
+    store();
   };
 
-  return <CartContext.Provider value={{ isCartItems, addItem }}>{children}</CartContext.Provider>;
+  useEffect(() => {
+    store();
+  }, [isCartItems]);
+
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.setItem("Shopping", "[]");
+  };
+
+  return (
+    <CartContext.Provider value={{ isCartItems, addItem, clearCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 }
 
 export default CartContext;

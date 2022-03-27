@@ -1,0 +1,22 @@
+.header-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-bottom: 10px solid #000;
+}
+
+.header-image img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.news-article {
+  max-width: 400px;
+}
+
+.news-article img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
