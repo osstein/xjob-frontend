@@ -102,9 +102,12 @@ header nav ul li a {
   justify-content: center;
 }
 
-
+main {
+  padding-bottom: 100px;
+}
 
 footer {
+  
   min-height: 500px;
   background-color: #000;
   color: #ffea00;

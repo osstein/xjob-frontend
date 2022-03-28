@@ -14,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {" "}
         <CartProvider>
           <Header />
           <Routes>

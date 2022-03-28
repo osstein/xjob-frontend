@@ -266,8 +266,9 @@ const Product = () => {
                 })}
             </select>
             <br />
-            <br/>
-            <button className="button-design"
+            <br />
+            <button
+              className="button-design"
               onClick={() =>
                 addItem(
                   isProduct.name,
@@ -277,7 +278,9 @@ const Product = () => {
                   isSelectType,
                   isSelectSize,
                   isSelectColor,
-                  isProduct.productNumber
+                  isProduct.productNumber,
+                  isProduct.discount,
+                  isProduct.vat
                 )
               }
             >
