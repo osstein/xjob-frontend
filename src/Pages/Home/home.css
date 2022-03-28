@@ -26,13 +26,51 @@ main {
   width: 100%;
 }
 
-.news-article {
-  max-width: 400px;
-  margin: 10px 0px 40px 0px;
+.frontpage-part {
+  margin-bottom: 50px;
+  max-width: 800px;
 }
+
+.frontpage-part h3 {
+  font-size: 50px;
+}
+
+.frontpage-part p {
+  font-size: 30px;
+}
+
+h2.main-header {
+  font-size: 120px;
+}
+
+.main-slogan {
+  font-size: 45px;
+  font-weight: bolder;
+}
+
+.news-article {
+  max-width: 500px;
+  margin: 5px 0px 45px 0px;
+  transition: all ease-out 0.5s;
+}
+
+
 
 .news-article img {
   width: 100%;
   height: 300px;
   object-fit: cover;
+  margin-top: 5px;
+}
+
+.newsHeader {
+  font-size: 70px;
+}
+
+.read-button {
+  cursor: pointer;
+  font-size: 25px ;
+  text-align: right;
+  font-weight: 600;
+  margin-top: 5px;
 }
