@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const Home = () => {
   require("./home.css");
 
-  const [isNews, setNews] = useState();
+  const [isNews, setNews] = useState([]);
 
   //Get productsTypes
   const getNews = () => {
@@ -36,17 +36,24 @@ const Home = () => {
       <div className="header-image">
         <img src={HeaderImage} alt="Header fish " />
       </div>
-      <section>
-      {/*   {isNews.map((news) => {
-          return (
-            <article className="news-article">
-              <h2>{news.title}</h2>
-              <p>{news.content}</p>
-              <img src={"https://localhost:7207/" + news.imagePath} alt={news.imageAlt} />
-            </article>
-          );
-        })} */}
-      </section>
+      <div className="front-display">
+        <section>
+          <h2>BashPodden</h2>
+          
+        </section>
+        <section>
+          <h2>Nyheter</h2>
+          {isNews.map((news) => {
+            return (
+              <article className="news-article">
+                <h3>{news.title}</h3>
+                <p>{news.content.substring(0, 100)}</p>
+                <img src={"https://localhost:7207/" + news.imagePath} alt={news.imageAlt} />
+              </article>
+            );
+          })}
+        </section>
+      </div>
     </main>
   );
 };

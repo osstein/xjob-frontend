@@ -1,3 +1,11 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #ffea00;
+  min-height: 100vh;
+}
 .header-image {
   width: 100%;
   height: 500px;
@@ -11,8 +19,16 @@
   width: 100%;
 }
 
+.front-display {
+  display: flex;
+  justify-content: space-between;
+  padding: 100px clamp(15px, 25vw, 150px);
+  width: 100%;
+}
+
 .news-article {
   max-width: 400px;
+  margin: 10px 0px 40px 0px;
 }
 
 .news-article img {
