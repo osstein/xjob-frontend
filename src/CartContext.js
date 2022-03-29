@@ -26,7 +26,7 @@ export function CartProvider({ children }) {
   const calcVat = () => {
     let tot = 0;
     for (let i = 0; i < isCartItems.length; i++) {
-      tot = tot + (isCartItems[i].vat / 100) * (isCartItems[i].price * isCartItems[i].amount);
+      tot = tot + (isCartItems[i].vat / 100) * ((isCartItems[i].price * (1 - (isCartItems[i].discount / 100))) * isCartItems[i].amount) ;
     }
     setCartVat(tot);
   };

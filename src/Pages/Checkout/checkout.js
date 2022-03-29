@@ -19,8 +19,7 @@ const Checkout = () => {
   const [isPaymentMethod, setPaymentMethod] = useState();
 
   // Update recipe
-  const sendOrder = (e) => {
-    e.preventDefault();
+  const sendOrder = () => {
     if (
       isFirstName !== null &&
       isLastName !== null &&
@@ -184,7 +183,7 @@ const Checkout = () => {
               value={"Lägg till kod"}
               type="button"
               onClick={(e) => {
-                checkDiscount(isDiscountCode); e.preventDefault()
+                checkDiscount(isDiscountCode); 
               }}
             />
           </form>
@@ -230,7 +229,7 @@ const Checkout = () => {
                 <td></td>
                 <td></td>
                 <td style={{ textAlign: "right" }}>Rabatt: </td>
-                <td>{isCartPrice * isDCPercent}</td>
+                <td>{(isCartPrice - isCartDiscount ) * isDCPercent}</td>
               </tr>
               <tr>
                 <td></td>
@@ -242,13 +241,13 @@ const Checkout = () => {
                 <td></td>
                 <td></td>
                 <td style={{ textAlign: "right" }}>Summa: </td>
-                <td>{isCartPrice}</td>
+                <td>{isCartPrice - isCartDiscount}</td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td style={{ textAlign: "right" }}>Summa med rabatt: </td>
-                <td>{isCartPrice * (1 - isDCPercent)}</td>
+                <td>{(isCartPrice - isCartDiscount) * (1 - isDCPercent)}</td>
               </tr>
             </tbody>
           </table>
