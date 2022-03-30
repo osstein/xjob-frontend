@@ -47,7 +47,7 @@ const Episodes = () => {
           <div className="player-description">
             <h3>{isActive.title}</h3>
             <p>
-              {isReadMore ? isActive.description : isActive.description.substring(0, 100) + "..."}
+              {isReadMore ? isActive.description : isActive.description.substring(0, 300) + "..."}
             </p>
             <p style={{ textAlign: "right" }} onClick={() => setReadMore(!isReadMore)}>
               <b className="bold">{isReadMore ? "Stäng" : "Läs Mer"}</b>

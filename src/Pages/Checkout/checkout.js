@@ -158,24 +158,26 @@ const Checkout = () => {
                 <option value="CreditCard">Kort</option>
               </select>
             </label>
-            <input value="Rensa formulär" type="reset" name="Clear" />
-            <input
-              value="Skicka Beställning"
-              type="button"
-              name="submitButton"
-              onClick={(e) => {
-                sendOrder(e);
-              }}
-            />
+            <div className="checkout-buttons">
+              <input className="clear-button" value="Rensa formulär" type="reset" name="Clear" />
+              <input
+                value="Skicka Beställning"
+                type="button"
+                name="submitButton"
+                onClick={(e) => {
+                  sendOrder(e);
+                }}
+              />
+            </div>
           </form>
         </div>
         <div className="checkout-half">
           <h2>Varukorg:</h2>
           <form className="discount-form">
             <label htmlFor="DiscountCode">
-              Ev. Rabattkod:
-              <br></br>
-              <input
+              Ev. Rabattkod: {" "}
+              
+              <input className="discount-field"
                 placeholder="Rabattkod"
                 name="DiscountCode"
                 onChange={(e) => {
@@ -184,9 +186,10 @@ const Checkout = () => {
               />
             </label>
             <input
+            className="discount-button"
               value={"Lägg till kod"}
               type="button"
-              onClick={(e) => {
+              onClick={() => {
                 checkDiscount(isDiscountCode);
               }}
             />

@@ -82,6 +82,42 @@ td:last-of-type {
   border-left: #000 solid 1px;
 }
 
+.checkout-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 25px;
+}
+
+input[type=button] {
+  border: #000 5px solid;
+  background-color: #ffea00;
+  padding: 3px 15px;
+  cursor: pointer;
+  width: initial;
+}
+
+input[type=reset]{
+  background-color: #ffea00;
+  border: none;
+  cursor: pointer;
+  width: initial;
+}
+
+input[type=button]:hover{background-color: #fff;}
+input[type=reset]:hover{text-decoration: underline #000 ;}
+
+.discount-button {
+  
+  display: inline-block;
+  font-size: 16px;
+}
+.discount-form{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 .cart-remove-checkout {
   cursor: pointer;
   font-size: 20px;
