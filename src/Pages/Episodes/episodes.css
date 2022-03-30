@@ -1,0 +1,53 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffea00;
+  min-height: 100vh;
+}
+
+
+.main-section-episode {
+  padding: 150px clamp(15px, 25vw, 150px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.episode-half {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 25px;
+ 
+  
+}
+.player  {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.player audio {
+  display: block;
+}
+
+.player-description {
+  margin-top: 50px;
+}
+.episode-list {
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.episode-list:hover {color: #555;}
+
+.bold {
+  font-weight: bolder;
+}

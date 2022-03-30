@@ -17,6 +17,7 @@ const Checkout = () => {
   const [isCity, setCity] = useState();
   const [isDiscountCode, setDiscountCode] = useState("");
   const [isPaymentMethod, setPaymentMethod] = useState();
+  const [isErrorMessage, setErrorMessage] = useState();
 
   // Update recipe
   const sendOrder = () => {
@@ -43,7 +44,7 @@ const Checkout = () => {
         },
         OrderProducts: JSON.parse(localStorage.getItem("Shopping")),
       });
-      console.log(formData);
+
       let url = `https://localhost:7207/api/apiorder`;
       fetch(url, {
         method: "POST",
@@ -54,6 +55,8 @@ const Checkout = () => {
       })
         .then((res) => res.json())
         .then((data) => console.log(data))
+        .then(clearCart())
+        .then(window.location.reload())
         .catch((res) => console.log(res));
     }
   };
@@ -88,7 +91,7 @@ const Checkout = () => {
       let now = new Date().getTime();
       if (e === isDC[i].code && now > campaignStart && now < campaignEnd) {
         setDCPercent(isDC[i].discount / 100);
-        break
+        break;
       } else {
         setDCPercent(0);
       }
@@ -168,9 +171,10 @@ const Checkout = () => {
         </div>
         <div className="checkout-half">
           <h2>Varukorg:</h2>
-          <form>
+          <form className="discount-form">
             <label htmlFor="DiscountCode">
               Ev. Rabattkod:
+              <br></br>
               <input
                 placeholder="Rabattkod"
                 name="DiscountCode"
@@ -183,7 +187,7 @@ const Checkout = () => {
               value={"Lägg till kod"}
               type="button"
               onClick={(e) => {
-                checkDiscount(isDiscountCode); 
+                checkDiscount(isDiscountCode);
               }}
             />
           </form>
@@ -206,6 +210,7 @@ const Checkout = () => {
                         className={"cart-remove-checkout"}
                         onClick={() => removeCart(cart.typeId, cart.productId)}
                       >
+                        <br></br>
                         (Ta bort produkt)
                       </span>
                     </td>
@@ -225,12 +230,7 @@ const Checkout = () => {
                   </tr>
                 );
               })}
-              <tr>
-                <td></td>
-                <td></td>
-                <td style={{ textAlign: "right" }}>Rabatt: </td>
-                <td>{(isCartPrice - isCartDiscount ) * isDCPercent}</td>
-              </tr>
+
               <tr>
                 <td></td>
                 <td></td>
@@ -243,12 +243,26 @@ const Checkout = () => {
                 <td style={{ textAlign: "right" }}>Summa: </td>
                 <td>{isCartPrice - isCartDiscount}</td>
               </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td style={{ textAlign: "right" }}>Summa med rabatt: </td>
-                <td>{(isCartPrice - isCartDiscount) * (1 - isDCPercent)}</td>
-              </tr>
+              {1 - isDCPercent < 1 ? (
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style={{ textAlign: "right" }}>Rabatt: </td>
+                  <td>{(isCartPrice - isCartDiscount) * isDCPercent}</td>
+                </tr>
+              ) : (
+                ""
+              )}
+              {1 - isDCPercent < 1 ? (
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style={{ textAlign: "right" }}>Summa efter rabatt: </td>
+                  <td>{(isCartPrice - isCartDiscount) * (1 - isDCPercent)}</td>
+                </tr>
+              ) : (
+                ""
+              )}
             </tbody>
           </table>
           <br></br>

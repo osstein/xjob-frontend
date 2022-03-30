@@ -55,6 +55,10 @@ main {
   margin-bottom: 10px;
 }
 
+.discount-form {
+  margin-bottom: 100px;
+}
+
 table {
   text-align: left;
   border-spacing: 0px;

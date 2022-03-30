@@ -19,6 +19,7 @@ const Store = () => {
         });
         const data = await response.json();
         setProducts(data);
+
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -38,6 +39,7 @@ const Store = () => {
         });
         const data = await response.json();
         setCategories(data);
+
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -66,6 +68,40 @@ const Store = () => {
     };
     fetchTasting(fetchPath);
   };
+  const [isLoadedTrue, setLoadedTrue] = useState(false);
+  const [isActiveCategories, setActiveCategories] = useState([
+    { id: 0, category: "", subCategory: [{ id: 0, category: "" }] },
+  ]);
+  const activeCategories = () => {
+    if (isLoadedTrue === false) {
+      for (let i = 0; i < isCategories.length; i++) {
+        let filteredSub = [];
+        for (let o = 0; o < isCategories[i].catalogSubCategories.length; o++) {
+          for (let p = 0; p < isProducts.length; p++) {
+            if (
+              isCategories[i].catalogSubCategories[o].id === isProducts[p].catalogSubCategoriesId
+            ) {
+              filteredSub.push({
+                id: isCategories[i].catalogSubCategories[o].id,
+                category: isCategories[i].catalogSubCategories[o].category,
+              });
+            }
+          }
+        }
+        if (filteredSub.length > 0) {
+          setActiveCategories((prevState) => [
+            ...prevState,
+            {
+              id: isCategories[i].id,
+              category: isCategories[i].category,
+              subCategory: filteredSub,
+            },
+          ]);
+          setLoadedTrue(true);
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     getProducts();
@@ -76,19 +112,19 @@ const Store = () => {
   return (
     <main>
       <aside className={"catalog"}>
-        <h2>Kategorier</h2>
+        <h2 onMouseEnter={() => activeCategories()}>Kategorier</h2>
         <nav className="catalog-nav">
           <div>
             <h3>
               <NavLink to="/handla">Visa alla</NavLink>
             </h3>
           </div>
-          {isCategories.map((item) => (
+          {isActiveCategories.map((item) => (
             <div key={item.id}>
               <h4>{item.category}</h4>
-              {item.catalogSubCategories.map((s) => (
-                <p key={s.id}>
-                  <NavLink to={"/handla/" + s.id}>{s.category}</NavLink>
+              {item.subCategory.map((sub) => (
+                <p key={sub.id}>
+                  <NavLink to={"/handla/" + sub.id}>{sub.category}</NavLink>
                 </p>
               ))}
             </div>
@@ -110,7 +146,7 @@ const Store = () => {
           /* .sort((a, b) => b.price - a.price) */
           .map((item) => (
             <NavLink key={item.id} className="linkStoreItem" to={"/Produkt/" + item.id}>
-              <article className="StoreItem" >
+              <article className="StoreItem">
                 {isImages.map((img) => {
                   if (img.productId === item.id) {
                     return (
