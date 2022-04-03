@@ -36,6 +36,7 @@ main {
 
 .player audio {
   display: block;
+  width: clamp(300px, 30vw, 600px);
 }
 
 .player-description {

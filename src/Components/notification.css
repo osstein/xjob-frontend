@@ -1,0 +1,29 @@
+.notification {
+  position: fixed;
+  top: 0%;
+  right: 0px;
+  width: 100%;
+  min-height: 50px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+
+.message {
+  display: block;
+  transition: 0.5s;
+  position: absolute;
+  left: 0%;
+  bottom: 0%;
+  width: 100%;
+  min-height: 50px;
+  text-align: right;
+  background-color: #ffea00;
+  padding: 5px clamp(15px, 25vw, 150px);
+  border-bottom: solid #000 3px;
+
+}
+
+.closed-message {
+    bottom: 100%;
+}

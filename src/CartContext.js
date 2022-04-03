@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import NotificationContext from "./NotificationContext";
 
 const CartContext = createContext();
 
@@ -7,6 +8,7 @@ export function CartProvider({ children }) {
   const [isCartPrice, setCartPrice] = useState();
   const [isCartVat, setCartVat] = useState();
   const [isCartDiscount, setCartDiscount] = useState();
+  const { NewNotification } = useContext(NotificationContext);
 
   const store = () => {
     localStorage.setItem("Shopping", JSON.stringify(isCartItems));
@@ -26,7 +28,9 @@ export function CartProvider({ children }) {
   const calcVat = () => {
     let tot = 0;
     for (let i = 0; i < isCartItems.length; i++) {
-      tot = tot + (isCartItems[i].vat / 100) * ((isCartItems[i].price * (1 - (isCartItems[i].discount / 100))) * isCartItems[i].amount) ;
+      tot +=
+        ((isCartItems[i].vat / 100) *
+        isCartItems[i].price) * ((1 - isCartItems[i].discount / 100) * isCartItems[i].amount);
     }
     setCartVat(tot);
   };
@@ -36,8 +40,7 @@ export function CartProvider({ children }) {
     for (let i = 0; i < isCartItems.length; i++) {
       if (isCartItems[i].discount > 0) {
         tot =
-          tot +
-          ((isCartItems[i].discount) / 100) * (isCartItems[i].price * isCartItems[i].amount);
+          tot + (isCartItems[i].discount / 100) * (isCartItems[i].price * isCartItems[i].amount);
       }
     }
     setCartDiscount(tot);
@@ -109,6 +112,7 @@ export function CartProvider({ children }) {
     calcPrice();
     calcDiscount();
     calcVat();
+    NewNotification(name + " tillagd");
   };
 
   useEffect(() => {
@@ -117,10 +121,11 @@ export function CartProvider({ children }) {
 
   const clearCart = () => {
     setCartItems([]);
-    setCartVat(0)
-    setCartPrice(0)
-    setCartDiscount(0)
+    setCartVat(0);
+    setCartPrice(0);
+    setCartDiscount(0);
     localStorage.setItem("Shopping", "[]");
+    NewNotification("Varukorgen är tom");
   };
 
   const adjustCart = (typeId, productId, change) => {
@@ -131,6 +136,7 @@ export function CartProvider({ children }) {
         if (productId === cart[i].productId && typeId === cart[i].typeId) {
           cart[i].amount = cart[i].amount + 1;
           setCartItems(cart);
+          NewNotification(cart[i].name + " ökad med 1");
         }
       }
     if (change === "Decrease")
@@ -138,6 +144,7 @@ export function CartProvider({ children }) {
         if (productId === cart[i].productId && typeId === cart[i].typeId) {
           cart[i].amount = cart[i].amount - 1;
           setCartItems(cart);
+          NewNotification(cart[i].name + " minskad med 1");
         }
       }
 
@@ -153,6 +160,7 @@ export function CartProvider({ children }) {
       }
     }
     store();
+    NewNotification("Produkt borttagen");
   };
 
   return (

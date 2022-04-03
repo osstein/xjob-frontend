@@ -3,10 +3,12 @@ import { useContext, useState, useEffect } from "react";
 import CartContext from "../../CartContext";
 import { IoChevronDownCircleSharp } from "react-icons/io5";
 import { IoChevronUpCircleSharp } from "react-icons/io5";
+import NotificationContext from "../../NotificationContext";
 const Checkout = () => {
   require("./checkout.css");
   const { isCartItems, isCartVat, isCartPrice, isCartDiscount, removeCart, clearCart, adjustCart } =
     useContext(CartContext);
+  const { NewNotification } = useContext(NotificationContext);
 
   const [isFirstName, setFirstName] = useState();
   const [isLastName, setLastName] = useState();
@@ -17,47 +19,54 @@ const Checkout = () => {
   const [isCity, setCity] = useState();
   const [isDiscountCode, setDiscountCode] = useState("");
   const [isPaymentMethod, setPaymentMethod] = useState();
-  const [isErrorMessage, setErrorMessage] = useState();
 
+  console.log(isLastName);
   // Update recipe
   const sendOrder = () => {
-    if (
-      isFirstName !== null &&
-      isLastName !== null &&
-      isEmail !== null &&
-      isPhone !== null &&
-      isAdress !== null &&
-      isZip !== null &&
-      isCity !== null
-    ) {
-      let formData = JSON.stringify({
-        Order: {
-          CustomerFirstName: isFirstName,
-          CustomerLastName: isLastName,
-          CustomerMail: isEmail,
-          CustomerPhone: isPhone,
-          CustomerAdress: isAdress,
-          CustomerZip: isZip,
-          CustomerCity: isCity,
-          DiscountCode: isDiscountCode,
-          PaymentMethod: isPaymentMethod,
-        },
-        OrderProducts: JSON.parse(localStorage.getItem("Shopping")),
-      });
+    if (isCartItems.length > 0) {
+      if (
+        isFirstName !== undefined &&
+        isLastName !== undefined &&
+        isEmail !== undefined &&
+        isPhone !== undefined &&
+        isAdress !== undefined &&
+        isZip !== undefined &&
+        isCity !== undefined
+      ) {
+        let formData = JSON.stringify({
+          Order: {
+            CustomerFirstName: isFirstName,
+            CustomerLastName: isLastName,
+            CustomerMail: isEmail,
+            CustomerPhone: isPhone,
+            CustomerAdress: isAdress,
+            CustomerZip: isZip,
+            CustomerCity: isCity,
+            DiscountCode: isDiscountCode,
+            PaymentMethod: isPaymentMethod,
+          },
+          OrderProducts: JSON.parse(localStorage.getItem("Shopping")),
+        });
 
-      let url = `https://localhost:7207/api/apiorder`;
-      fetch(url, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
-        .then(clearCart())
-        .then(window.location.reload())
-        .catch((res) => console.log(res));
+        let url = `https://localhost:7207/api/apiorder`;
+        fetch(url, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .then(clearCart())
+          .then(NewNotification("TACK! " + isFirstName + " " + isLastName + ", din order är skickad"))
+          .then(document.getElementById("checkout-form").reset())
+          .catch((res) => console.log(res));
+      } else {
+        NewNotification("Alla fält måste vara ifyllda");
+      }
+    } else {
+      NewNotification("Varukorgen är tom");
     }
   };
   const [isDC, setDC] = useState();
@@ -91,9 +100,11 @@ const Checkout = () => {
       let now = new Date().getTime();
       if (e === isDC[i].code && now > campaignStart && now < campaignEnd) {
         setDCPercent(isDC[i].discount / 100);
+        NewNotification("Rabattkoden är tillagd");
         break;
       } else {
         setDCPercent(0);
+        NewNotification("Felaktig rabattkod");
       }
     }
   };
@@ -107,7 +118,7 @@ const Checkout = () => {
       <div className="flex-row">
         <div className="checkout-half">
           <h2>Dina Uppgifter:</h2>
-          <form className="checkout-form">
+          <form className="checkout-form" id="checkout-form">
             <label htmlFor="FirstName">
               Förnamn:
               <input
@@ -175,9 +186,9 @@ const Checkout = () => {
           <h2>Varukorg:</h2>
           <form className="discount-form">
             <label htmlFor="DiscountCode">
-              Ev. Rabattkod: {" "}
-              
-              <input className="discount-field"
+              Ev. Rabattkod:{" "}
+              <input
+                className="discount-field"
                 placeholder="Rabattkod"
                 name="DiscountCode"
                 onChange={(e) => {
@@ -186,7 +197,7 @@ const Checkout = () => {
               />
             </label>
             <input
-            className="discount-button"
+              className="discount-button"
               value={"Lägg till kod"}
               type="button"
               onClick={() => {
@@ -233,19 +244,19 @@ const Checkout = () => {
                   </tr>
                 );
               })}
-
+<tr>
+                <td></td>
+                <td></td>
+                <td style={{ textAlign: "right" }}>Summa: </td>
+                <td>{isCartPrice - isCartDiscount}</td>
+              </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td style={{ textAlign: "right" }}>Moms: </td>
                 <td>{isCartVat}</td>
               </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td style={{ textAlign: "right" }}>Summa: </td>
-                <td>{isCartPrice - isCartDiscount}</td>
-              </tr>
+              
               {1 - isDCPercent < 1 ? (
                 <tr>
                   <td></td>

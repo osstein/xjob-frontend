@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import CartContext from "../CartContext";
-import {  NavLink } from "react-router-dom";
+import Notify from "./notification.js";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const { isCartItems } = useContext(CartContext);
@@ -18,6 +19,11 @@ const Header = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/Nyheter" className="cartIcon">
+              Nyheter
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/Handla" className="cartIcon">
               Handla
             </NavLink>
@@ -31,6 +37,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
+      <Notify />
     </header>
   );
 };

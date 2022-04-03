@@ -6,7 +6,9 @@ import Store from "./Pages/Store/store";
 import Header from "./Components/header";
 import Checkout from "./Pages/Checkout/checkout";
 import Product from "./Pages/Product/product";
+import News from "./Pages/News/news";
 import { CartProvider } from "./CartContext";
+import { NotifyProvider } from "./NotificationContext";
 
 function App() {
 
@@ -14,6 +16,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <NotifyProvider>
         <CartProvider>
           <Header />
           <Routes>
@@ -21,6 +24,7 @@ function App() {
             <Route exact path="Handla/" element={<Store />}></Route>
             <Route exact path="Handla/:CategoryId" element={<Store />}></Route>
             <Route exact path="Lyssna" element={<Episodes />}></Route>
+            <Route exact path="Nyheter" element={<News />}></Route>
             <Route exact path="Betala" element={<Checkout />}></Route>
             <Route exact path="Produkt/:ProductId" element={<Product />}></Route>
             {/* <Route path="/recipe/:recipeid" element={<Recipe />}></Route> */}
@@ -29,6 +33,7 @@ function App() {
             <p>footer</p>
           </footer>
         </CartProvider>
+        </NotifyProvider>
       </Router>
     </div>
   );

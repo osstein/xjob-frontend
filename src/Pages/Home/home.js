@@ -32,7 +32,6 @@ const Home = () => {
     getNews();
   }, []);
 
-
   // To count printed news
   let q = 0;
 
@@ -46,7 +45,7 @@ const Home = () => {
           <article className="frontpage-part">
             <h2 className="main-header">BashPodden</h2>
             <p>
-              <span className={"main-slogan"}>Podden som löser problemen!</span>
+              <span className={"main-slogan"}>Sveriges mest intressanta podd!</span>
             </p>
           </article>
           <article className="frontpage-part">
@@ -75,27 +74,32 @@ const Home = () => {
               Youtube.
             </p>
           </article>
+          <article className="frontpage-part">
+            <h3>Kontakta BashPodden</h3>
+            <p>Vill du komma i kontakt med BashPodden?</p>
+          </article>
         </section>
         <section>
           <h2 className="newsHeader">Nyheter</h2>
           {isNews
             .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+            .filter((a) => {
+              if (new Date(a.timestamp) < new Date()) {
+                return a;
+              } else return "";
+            })
+            .slice(0, 5)
             .map((news) => {
-              if (new Date(news.timestamp) < new Date()) {
-                
-                if (q < 5) {
-                  q++;
-                  return (
-                    <NewsArticle
-                      title={news.title}
-                      content={news.content}
-                      imagePath={news.imagePath}
-                      imageAlt={news.imageAlt}
-                    />
-                  );
-                } else {
-                  return "";
-                }
+              if (q < 5) {
+                q++;
+                return (
+                  <NewsArticle
+                    title={news.title}
+                    content={news.content}
+                    imagePath={news.imagePath}
+                    imageAlt={news.imageAlt}
+                  />
+                );
               } else {
                 return "";
               }
