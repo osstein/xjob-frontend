@@ -111,4 +111,5 @@ footer {
   min-height: 500px;
   background-color: #000;
   color: #ffea00;
+  padding: 50px clamp(15px, 25vw, 150px);
 }

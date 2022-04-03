@@ -2,7 +2,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: stretch;
+  
   background-color: #ffea00;
   min-height: 100vh;
 }
@@ -12,6 +12,7 @@ main {
   padding: clamp(15px, 25vw, 150px);
   flex-wrap: nowrap;
   flex-direction: row;
+  width: 100%;
 }
 .flex-div-row-np {
   display: flex;

@@ -92,7 +92,7 @@ const News = () => {
                 >
                   <h4>{n.title}</h4>
                   <p>{n.content.substring(0, 30)}...</p>
-                  <p>{n.timestamp.substring(0, 10)}</p>
+                  <p style={{textAlign : "right"}}>{n.timestamp.substring(0, 10)}</p>
                 </article>
               );
             })}
