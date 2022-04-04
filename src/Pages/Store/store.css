@@ -29,7 +29,7 @@ main {
 
 .catalog .catalog-nav {
   display: none;
-  padding: 25px clamp(15px, 25vw, 150px);
+  padding: 25px clamp(15px, 8vw, 150px);
 }
 
 .catalog:hover .catalog-nav {
@@ -56,7 +56,7 @@ main {
 }
 
 .main-section {
-  padding: clamp(15px, 25vw, 150px);
+  padding: 100px clamp(15px, 8vw, 150px);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

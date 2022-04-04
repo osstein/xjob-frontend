@@ -22,7 +22,7 @@ main {
 .front-display {
   display: flex;
   justify-content: space-between;
-  padding: 100px clamp(15px, 25vw, 150px);
+  padding: 100px clamp(15px, 8vw, 150px);
   width: 100%;
 }
 
@@ -64,9 +64,17 @@ h2.main-header {
 }
 
 .newsHeader {
-  font-size: 70px;
+  
+  text-decoration: none;
+  color: #000;
 }
 
+.newsHeader:hover {
+  text-decoration: underline;
+}
+.newsHeader h2 {
+  font-size: 70px;
+}
 .read-button {
   cursor: pointer;
   font-size: 25px ;

@@ -1,6 +1,7 @@
 import HeaderImage from "../../Assets/headerbashmoreplash.jpg";
 import { useEffect, useState } from "react";
 import NewsArticle from "./readmore";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   require("./home.css");
@@ -80,7 +81,9 @@ const Home = () => {
           </article>
         </section>
         <section>
-          <h2 className="newsHeader">Nyheter</h2>
+          <NavLink to="/Nyheter" className="newsHeader"><h2 >
+              Nyheter</h2>
+            </NavLink>
           {isNews
             .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
             .filter((a) => {

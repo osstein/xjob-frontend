@@ -4,7 +4,7 @@ const News = () => {
   require("./news.css");
 
   const [isNews, setNews] = useState([]);
-  const [isActive, setActive] = useState([{ title: "", content: "", imagePath: "", imageAlt: "" }]);
+  const [isActive, setActive] = useState({ title: "", content: "Välj en nyhet", imagePath: "", imageAlt: "" });
   const [isPage, setPage] = useState(0);
 
   //Get News

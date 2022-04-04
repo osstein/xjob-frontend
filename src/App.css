@@ -25,7 +25,7 @@ header {
 
 header,
 footer {
-  padding: 0px clamp(15px, 25vw, 150px);
+  padding: 0px clamp(15px, 8vw, 150px);
 }
 
 h1 {
@@ -107,9 +107,70 @@ main {
 }
 
 footer {
-  
   min-height: 500px;
   background-color: #000;
   color: #ffea00;
-  padding: 50px clamp(15px, 25vw, 150px);
+  padding-top: 50px;
+}
+
+footer h3 {
+  margin-top: 25px;
+}
+footer h3:first-of-type {
+  margin-top: 0x;
+}
+footer li {
+  margin-bottom: 10px;
+}
+
+footer a {
+  color: #ffea00;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 1300px) {
+  header nav ul li a {
+    font-size: 20px;
+  }
+
+  header h1 a {
+    font-size: 40px;
+  }
+}
+@media (max-width: 800px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 25px;
+  }
+}
+@media (max-width: 600px) {
+  header {
+    min-height: 200px;
+    height: initial;
+    padding-bottom: 10px;
+  }
+  header nav {
+    width: 100%;
+  }
+  header nav ul {
+    width: 100%;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+  }
+  header nav ul li {
+    flex-basis: 40%;
+  }
+  .cartAmount {
+    position: fixed;
+    top: 20px;
+    left: initial;
+    right: 20px;
+  }
 }

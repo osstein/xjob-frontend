@@ -2,14 +2,14 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  
+
   background-color: #ffea00;
   min-height: 100vh;
 }
 .flex-div-row {
   display: flex;
   justify-content: space-between;
-  padding: clamp(15px, 25vw, 150px);
+  padding: 100px clamp(15px, 8vw, 150px);
   flex-wrap: nowrap;
   flex-direction: row;
   width: 100%;
@@ -39,9 +39,8 @@ main {
   justify-content: center;
 }
 .news-reader {
-  width: 100%;
+  width: clamp(280px, 40vw, 800px);
   overflow: hidden;
-  max-width: 800px;
 }
 
 .news-reader img {
@@ -53,4 +52,23 @@ main {
 
 .news-list-article {
   cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .flex-div-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 50px;
+    padding: 100px clamp(15px, 8vw, 150px);
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 100%;
+  }
+  .news-reader {
+    width: 100%;
+  }
+  .main-section-column {
+    width: 100%;
+  }
 }
