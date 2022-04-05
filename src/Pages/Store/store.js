@@ -39,10 +39,11 @@ const Store = () => {
         });
         const data = await response.json();
         setCategories(data);
-
+        
         if (!response.ok) {
           throw new Error(response.statusText);
         }
+        
       } catch (e) {
         console.log(`Error: ${e}`);
       }
@@ -109,10 +110,14 @@ const Store = () => {
     getImages();
   }, [CategoryId]);
 
+  useEffect(() => {
+    activeCategories()
+  }, [isCategories]);
+
   return (
     <main>
       <aside className={"catalog"}>
-        <h2 onMouseEnter={() => activeCategories()}>Kategorier</h2>
+        <h2  >Kategorier</h2>
         <nav className="catalog-nav">
           <div>
             <h3>

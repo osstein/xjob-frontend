@@ -58,6 +58,7 @@ main {
 
 @media (max-width: 1100px) {
   .main-section-episode {
+    padding: 50px clamp(15px, 8vw, 150px);
     flex-direction: column;
   }
   .episode-half {
@@ -65,5 +66,23 @@ main {
   }
   .player {
     width: 100%;
+  }
+  .player-description p {
+    font-size: 20px;
+  }
+  
+}
+@media (max-width: 500px) {
+  #player {
+    width: 90vw;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+
+  .episode-half li,
+  .episode-half li b {
+    font-size: 18px;
   }
 }
