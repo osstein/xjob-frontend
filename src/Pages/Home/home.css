@@ -108,6 +108,11 @@ h2.main-header {
     justify-content: center;
     align-items: center;
   }
+.front-display section {
+  max-width: 500px;
+  width: 100%;
+}
+
   .frontpage-part {
     max-width: 500px;
     width: 100%;
@@ -127,6 +132,7 @@ h2.main-header {
   }
   .news-article {
     max-width: 500px;
+    width: 100%;
     margin-bottom: 20px;
   }
   .news-article h3 {
