@@ -101,6 +101,7 @@ const Home = () => {
                     content={news.content}
                     imagePath={news.imagePath}
                     imageAlt={news.imageAlt}
+                    date={news.timestamp}
                   />
                 );
               } else {
