@@ -11,6 +11,7 @@ const Product = () => {
   if (ProductId !== undefined) {
     param = ProductId;
   }
+  const [isButtonActive, setButtonActive] = useState(true);
   const [isProduct, setProduct] = useState([]);
   const [isColors, setColors] = useState([]);
   const [isSizes, setSizes] = useState([]);
@@ -27,6 +28,7 @@ const Product = () => {
         const data = await response.json();
 
         setTypes(data);
+
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -128,13 +130,17 @@ const Product = () => {
   const [isSelectSize, setSelectSize] = useState();
   const [isSelectColor, setSelectColor] = useState();
   const [isSelectType, setSelectType] = useState();
+  const [isSelectAmount, setSelectAmount] = useState(0);
+  const [isAvailable, setAvailable] = useState(0);
 
+  //Controll på produktid med
   function setSC(e) {
     for (let i = 0; i < isTypes.length; i++) {
       if (isTypes[i].id.toString() === e.toString()) {
         setSelectType(isTypes[i].id);
         let color = isTypes[i].productColorId;
         let size = isTypes[i].productSizeId;
+        setAvailable(isTypes[i].amount);
         for (let o = 0; o < isColors.length; o++) {
           if (isColors[o].id === color) {
             setSelectColor(isColors[o].color);
@@ -148,6 +154,17 @@ const Product = () => {
       }
     }
   }
+
+  const [isColorFilter, setColorFilter] = useState(0);
+  let ColorFilterArray = [];
+
+  const setBuyButton = (e) => {
+    if (e <= 0) {
+      setButtonActive(true);
+    } else {
+      setButtonActive(false);
+    }
+  };
 
   return (
     <main>
@@ -180,7 +197,7 @@ const Product = () => {
               .filter((q) => {
                 if (ProductId === undefined) {
                   return q;
-                } else if (q.productId.toString() === ProductId) {
+                } else if (q.productId.toString() === ProductId.toString()) {
                   return q;
                 } else {
                   return "";
@@ -232,13 +249,61 @@ const Product = () => {
             <p>Artikel. Nr.- {isProduct.productNumber}</p>
             <br></br>
             <p>Storlek och färg:</p>
-            <select onChange={(e) => setSC(e.target.value)}>
-              <option>Choose</option>
+            <div className="color-icon-list">
               {isTypes
                 .filter((q) => {
                   if (ProductId === undefined) {
                     return q;
                   } else if (q.productId.toString() === ProductId) {
+                    return q;
+                  } else {
+                    return "";
+                  }
+                })
+
+                .map((type) => {
+                  return isColors
+                    .filter((q) => {
+                      if (ColorFilterArray.includes(q.id)) {
+                        return "";
+                      } else {
+                        return q;
+                      }
+                    })
+                    .map((color) => {
+                      if (parseInt(type.productColorId) === parseInt(color.id)) {
+                        ColorFilterArray.push(color.id);
+                        return (
+                          <div
+                            key={color.id}
+                            onClick={() => setColorFilter(color.id)}
+                            style={{ backgroundColor: color.colorCode }}
+                            className="color-icon"
+                          ></div>
+                        );
+                      } else {
+                        return "";
+                      }
+                    });
+                })}
+            </div>
+            <select
+              onChange={(e) => {
+                setSC(e.target.value);
+                setBuyButton(e.target.value);
+              }}
+            >
+              <option value="0">Choose</option>
+              {isTypes
+                .filter((q) => {
+                   if (q.productId.toString() === ProductId.toString()) {
+                    return q;
+                  } else {
+                    return "";
+                  }
+                })
+                .filter((q) => {
+                  if (parseInt(q.productColorId) === parseInt(isColorFilter)) {
                     return q;
                   } else {
                     return "";
@@ -252,7 +317,7 @@ const Product = () => {
                         if (type.productSizeId === size.id) {
                           return (
                             <option key={type.id} value={type.id}>
-                              {size.size} / {color.color}
+                              {size.size}
                             </option>
                           );
                         } else {
@@ -267,14 +332,22 @@ const Product = () => {
             </select>
             <br />
             <br />
+            <input
+              min={0}
+              max={isAvailable}
+              type="number"
+              onChange={(e) => setSelectAmount(e.target.value)}
+            />
+            <br />
+            <br />
             <button
-              className="button-design"
+              className={isButtonActive ? "hidden button-design " : "button-design "}
               onClick={() =>
                 addItem(
                   isProduct.name,
                   isProduct.id,
                   isProduct.price,
-                  1,
+                  isSelectAmount,
                   isSelectType,
                   isSelectSize,
                   isSelectColor,

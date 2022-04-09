@@ -20,7 +20,6 @@ const Checkout = () => {
   const [isDiscountCode, setDiscountCode] = useState("");
   const [isPaymentMethod, setPaymentMethod] = useState();
 
-  console.log(isLastName);
   // Update recipe
   const sendOrder = () => {
     if (isCartItems.length > 0) {
@@ -59,7 +58,9 @@ const Checkout = () => {
           .then((res) => res.json())
           .then((data) => console.log(data))
           .then(clearCart())
-          .then(NewNotification("TACK! " + isFirstName + " " + isLastName + ", din order är skickad"))
+          .then(
+            NewNotification("TACK! " + isFirstName + " " + isLastName + ", din order är skickad")
+          )
           .then(document.getElementById("checkout-form").reset())
           .catch((res) => console.log(res));
       } else {
@@ -244,7 +245,7 @@ const Checkout = () => {
                   </tr>
                 );
               })}
-<tr>
+              <tr>
                 <td></td>
                 <td></td>
                 <td style={{ textAlign: "right" }}>Summa: </td>
@@ -256,7 +257,7 @@ const Checkout = () => {
                 <td style={{ textAlign: "right" }}>Moms: </td>
                 <td>{isCartVat}</td>
               </tr>
-              
+
               {1 - isDCPercent < 1 ? (
                 <tr>
                   <td></td>
@@ -265,7 +266,12 @@ const Checkout = () => {
                   <td>{(isCartPrice - isCartDiscount) * isDCPercent}</td>
                 </tr>
               ) : (
-                ""
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
               )}
               {1 - isDCPercent < 1 ? (
                 <tr>
@@ -275,7 +281,12 @@ const Checkout = () => {
                   <td>{(isCartPrice - isCartDiscount) * (1 - isDCPercent)}</td>
                 </tr>
               ) : (
-                ""
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
               )}
             </tbody>
           </table>

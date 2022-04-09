@@ -91,9 +91,30 @@ select {
   cursor: pointer;
   width: fit-content;
 }
+
+.button-design.hidden {
+  display: none;
+}
 .button-design:hover {
   background-color: #fff;
 }
+
+.color-icon-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 150px;
+  gap: 15px;
+  padding: 30px 0px;
+}
+.color-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: #333 3px solid;
+}
+
+
 @media (max-width: 1800px) {
   .flex-row {
     flex-direction: column;
@@ -112,7 +133,7 @@ select {
   .main-image {
     display: none;
   }
-  .product-about{
+  .product-about {
     min-width: initial;
     padding: 15px;
     font-size: 20px;

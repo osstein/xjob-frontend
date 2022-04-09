@@ -6,6 +6,7 @@
   min-height: 50px;
   overflow: hidden;
   pointer-events: none;
+  z-index: 999;
 }
 
 .message {

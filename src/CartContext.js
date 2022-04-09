@@ -12,7 +12,6 @@ export function CartProvider({ children }) {
 
   const store = () => {
     localStorage.setItem("Shopping", JSON.stringify(isCartItems));
-    setCartItems(JSON.parse(localStorage.getItem("Shopping")));
     calcPrice();
     calcDiscount();
     calcVat();
@@ -29,8 +28,9 @@ export function CartProvider({ children }) {
     let tot = 0;
     for (let i = 0; i < isCartItems.length; i++) {
       tot +=
-        ((isCartItems[i].vat / 100) *
-        isCartItems[i].price) * ((1 - isCartItems[i].discount / 100) * isCartItems[i].amount);
+        (isCartItems[i].vat / 100) *
+        isCartItems[i].price *
+        ((1 - isCartItems[i].discount / 100) * isCartItems[i].amount);
     }
     setCartVat(tot);
   };
@@ -63,7 +63,9 @@ export function CartProvider({ children }) {
     // Sätt förtsta item alt. höj antalet om objektet redan finns alt. lägg till objektet i listan
     let o = 0;
     let cart = isCartItems;
+    console.log(isCartItems);
     if (isCartItems.length === 0) {
+      console.log("Tom array");
       setCartItems((prevState) => [
         ...prevState,
         {
@@ -79,15 +81,18 @@ export function CartProvider({ children }) {
           vat,
         },
       ]);
+      localStorage.setItem("Shopping", JSON.stringify(isCartItems));
     } else {
       for (let i = 0; i < isCartItems.length; i++) {
         if (productId === cart[i].productId && typeId === cart[i].typeId) {
-          cart[i].amount = cart[i].amount + 1;
+          cart[i].amount = parseInt(cart[i].amount) + parseInt(amount);
           setCartItems(cart);
           o = o + 1;
+          console.log("+ amount");
         }
       }
       if (o === 0) {
+        console.log("Om objekt inte finns sedan innan");
         setCartItems((prevState) => [
           ...prevState,
           {
@@ -108,6 +113,7 @@ export function CartProvider({ children }) {
     }
 
     // Lagra i localstorage
+    console.log(isCartItems);
     localStorage.setItem("Shopping", JSON.stringify(isCartItems));
     calcPrice();
     calcDiscount();
@@ -117,7 +123,7 @@ export function CartProvider({ children }) {
 
   useEffect(() => {
     store();
-  }, []);
+  }, [isCartItems]);
 
   const clearCart = () => {
     setCartItems([]);
@@ -134,7 +140,7 @@ export function CartProvider({ children }) {
     if (change === "Increase")
       for (let i = 0; i < isCartItems.length; i++) {
         if (productId === cart[i].productId && typeId === cart[i].typeId) {
-          cart[i].amount = cart[i].amount + 1;
+          cart[i].amount = parseInt(cart[i].amount) + 1;
           setCartItems(cart);
           NewNotification(cart[i].name + " ökad med 1");
         }
@@ -142,7 +148,7 @@ export function CartProvider({ children }) {
     if (change === "Decrease")
       for (let i = 0; i < isCartItems.length; i++) {
         if (productId === cart[i].productId && typeId === cart[i].typeId) {
-          cart[i].amount = cart[i].amount - 1;
+          cart[i].amount = parseInt(cart[i].amount) - 1;
           setCartItems(cart);
           NewNotification(cart[i].name + " minskad med 1");
         }
