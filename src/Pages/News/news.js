@@ -4,7 +4,12 @@ const News = () => {
   require("./news.css");
 
   const [isNews, setNews] = useState([]);
-  const [isActive, setActive] = useState({ title: "", content: "Välj en nyhet", imagePath: "", imageAlt: "" });
+  const [isActive, setActive] = useState({
+    title: "",
+    content: "Välj en nyhet",
+    imagePath: "",
+    imageAlt: "",
+  });
   const [isPage, setPage] = useState(0);
 
   //Get News
@@ -90,9 +95,18 @@ const News = () => {
                   }}
                   key={n.id}
                 >
-                  <h4>{n.title}</h4>
-                  <p>{n.content.substring(0, 30)}...</p>
-                  <p style={{textAlign : "right"}}>{n.timestamp.substring(0, 10)}</p>
+                  <div className="news-structure"> 
+                    <img
+                      className="news-thumbnail"
+                      src={"https://localhost:7207/" + n.imagePath}
+                      alt={n.imageAlt}
+                    />
+                    <div>
+                      <h4>{n.title}</h4>
+                      <p>{n.content.substring(0, 30)}...</p>
+                    </div>
+                  </div>
+                  <p className="news-timestamp" style={{ textAlign: "right" }}>{n.timestamp.substring(0, 10)}</p>
                 </article>
               );
             })}

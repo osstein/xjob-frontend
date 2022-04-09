@@ -96,7 +96,7 @@ const Home = () => {
               if (q < 5) {
                 q++;
                 return (
-                  <NewsArticle
+                  <NewsArticle key={news.id}
                     title={news.title}
                     content={news.content}
                     imagePath={news.imagePath}

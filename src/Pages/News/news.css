@@ -52,8 +52,26 @@ main {
 
 .news-list-article {
   cursor: pointer;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
 }
 
+.news-structure {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  max-width: 70%;
+}
+
+.news-list-article img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+}
+.news-timestamp{
+  font-size: 15px;
+}
 @media (max-width: 900px) {
   .flex-div-row {
     display: flex;
@@ -64,6 +82,10 @@ main {
     flex-wrap: nowrap;
     flex-direction: column;
     width: 100%;
+  }
+  .news-structure {
+    flex-direction: column;
+    
   }
   .news-reader {
     width: 100%;

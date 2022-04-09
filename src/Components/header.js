@@ -14,11 +14,12 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <NavLink to="/Lyssna">Lyssna</NavLink>
+            <NavLink to="/Nyheter">Läsa</NavLink>
           </li>
           <li>
-            <NavLink to="/Nyheter">Nyheter</NavLink>
+            <NavLink to="/Lyssna">Lyssna</NavLink>
           </li>
+
           <li>
             <NavLink to="/Handla">Handla</NavLink>
           </li>

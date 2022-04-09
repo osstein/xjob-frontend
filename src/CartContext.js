@@ -149,6 +149,9 @@ export function CartProvider({ children }) {
       for (let i = 0; i < isCartItems.length; i++) {
         if (productId === cart[i].productId && typeId === cart[i].typeId) {
           cart[i].amount = parseInt(cart[i].amount) - 1;
+          if (parseInt(cart[i].amount) <= 1) {
+            cart[i].amount = 1;
+          }
           setCartItems(cart);
           NewNotification(cart[i].name + " minskad med 1");
         }

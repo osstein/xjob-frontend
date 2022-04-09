@@ -17,10 +17,11 @@ const Product = () => {
   const [isSizes, setSizes] = useState([]);
   const [isImages, setImages] = useState([]);
   const [isTypes, setTypes] = useState([]);
+  const [isProps, setProps] = useState([]);
   //Get productsTypes
   const getTypes = () => {
     let fetchPath = "https://localhost:7207/api/apiproducttype/";
-    const fetchTasting = async (url) => {
+    const fetchCall = async (url) => {
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -36,11 +37,11 @@ const Product = () => {
         console.log(`Error: ${e}`);
       }
     };
-    fetchTasting(fetchPath);
+    fetchCall(fetchPath);
   }; //Get productsImages
   const getImages = () => {
     let fetchPath = "https://localhost:7207/api/apiproductImages/";
-    const fetchTasting = async (url) => {
+    const fetchCall = async (url) => {
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -55,12 +56,12 @@ const Product = () => {
         console.log(`Error: ${e}`);
       }
     };
-    fetchTasting(fetchPath);
+    fetchCall(fetchPath);
   };
   //Get productscolors
   const getColors = () => {
     let fetchPath = "https://localhost:7207/api/apiproductcolor/";
-    const fetchTasting = async (url) => {
+    const fetchCall = async (url) => {
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -75,12 +76,12 @@ const Product = () => {
         console.log(`Error: ${e}`);
       }
     };
-    fetchTasting(fetchPath);
+    fetchCall(fetchPath);
   };
   //Get productsizes
   const getSizes = () => {
     let fetchPath = "https://localhost:7207/api/apiproductsize/";
-    const fetchTasting = async (url) => {
+    const fetchCall = async (url) => {
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -95,12 +96,12 @@ const Product = () => {
         console.log(`Error: ${e}`);
       }
     };
-    fetchTasting(fetchPath);
+    fetchCall(fetchPath);
   };
   //Get products
   const getProduct = () => {
     let fetchPath = "https://localhost:7207/api/apiproduct/" + param;
-    const fetchTasting = async (url) => {
+    const fetchCall = async (url) => {
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -115,7 +116,29 @@ const Product = () => {
         console.log(`Error: ${e}`);
       }
     };
-    fetchTasting(fetchPath);
+    fetchCall(fetchPath);
+  };
+  //Get productproperties
+  const getProps = () => {
+    let fetchPath = "https://localhost:7207/api/APIProductProperties/";
+    const fetchCall = async (url) => {
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+        });
+        const data = await response.json();
+
+        setProps(data);
+        console.log(data)
+        console.log(isProps)
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+      } catch (e) {
+        console.log(`Error: ${e}`);
+      }
+    };
+    fetchCall(fetchPath);
   };
 
   useEffect(() => {
@@ -124,6 +147,7 @@ const Product = () => {
     getColors();
     getSizes();
     getTypes();
+    getProps();
   }, [ProductId]);
 
   const [isScrollImage, setScrollImage] = useState(0);
@@ -223,6 +247,19 @@ const Product = () => {
           <div className={"product-text"}>
             <h2>{isProduct.name}</h2>
             <p>{isProduct.description}</p>
+            <br/>
+            {isProps.map((x) => {
+              if (x.productId === isProduct.id) {
+                return (
+                  <p>
+                    <b style={{fontWeight:"700"}}>{x.title}</b>{" - "}
+                    {x.text}
+                  </p>
+                )
+              } else {
+                return "";
+              }
+            })}
             <br />
 
             {isProduct.discount === 0 ? (
@@ -294,10 +331,10 @@ const Product = () => {
                 setBuyButton(e.target.value);
               }}
             >
-              <option value="0">Choose</option>
+              <option value="0">Välj storlek</option>
               {isTypes
                 .filter((q) => {
-                   if (q.productId.toString() === ProductId.toString()) {
+                  if (q.productId.toString() === ProductId.toString()) {
                     return q;
                   } else {
                     return "";
@@ -335,7 +372,7 @@ const Product = () => {
             <br />
             <p>Antal:</p>
             <input
-              min={0}
+              min={1}
               max={isAvailable}
               type="number"
               onChange={(e) => setSelectAmount(e.target.value)}
