@@ -246,9 +246,9 @@ const Product = () => {
                 <span className="line-through">{isProduct.price * (isProduct.vat / 100)}sek</span>
               </p>
             )}
-            <p>Artikel. Nr.- {isProduct.productNumber}</p>
+            <p>Artikel Nummer: {isProduct.productNumber}</p>
             <br></br>
-            <p>Storlek och färg:</p>
+            <p>Färg:</p>
             <div className="color-icon-list">
               {isTypes
                 .filter((q) => {
@@ -287,6 +287,7 @@ const Product = () => {
                     });
                 })}
             </div>
+            <p>Storlek:</p>
             <select
               onChange={(e) => {
                 setSC(e.target.value);
@@ -332,6 +333,7 @@ const Product = () => {
             </select>
             <br />
             <br />
+            <p>Antal:</p>
             <input
               min={0}
               max={isAvailable}
