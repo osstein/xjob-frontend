@@ -79,9 +79,11 @@ header nav ul {
   column-gap: 40px;
 }
 
+
 header nav ul li a {
   color: #000;
   text-decoration: none;
+  padding: 2px 7px;
 }
 .cartIcon {
   position: relative;
@@ -131,6 +133,16 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+.active{
+  border-bottom: #555 solid 2px;
+}
+
+.active-color {
+  outline: 5px solid #333;
+  outline-offset: 2px;
+}
+
 @media (max-width: 1300px) {
   header nav ul li a {
     font-size: 20px;

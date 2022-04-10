@@ -129,8 +129,8 @@ const Product = () => {
         const data = await response.json();
 
         setProps(data);
-        console.log(data)
-        console.log(isProps)
+        console.log(data);
+        console.log(isProps);
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -247,15 +247,16 @@ const Product = () => {
           <div className={"product-text"}>
             <h2>{isProduct.name}</h2>
             <p>{isProduct.description}</p>
-            <br/>
+            <br />
             {isProps.map((x) => {
               if (x.productId === isProduct.id) {
                 return (
                   <p>
-                    <b style={{fontWeight:"700"}}>{x.title}</b>{" - "}
+                    <b style={{ fontWeight: "700" }}>{x.title}</b>
+                    {" - "}
                     {x.text}
                   </p>
-                )
+                );
               } else {
                 return "";
               }
@@ -315,7 +316,9 @@ const Product = () => {
                             key={color.id}
                             onClick={() => setColorFilter(color.id)}
                             style={{ backgroundColor: color.colorCode }}
-                            className="color-icon"
+                            className={
+                              color.id === isColorFilter ? "color-icon active-color" : "color-icon"
+                            }
                           ></div>
                         );
                       } else {

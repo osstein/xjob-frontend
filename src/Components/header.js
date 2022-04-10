@@ -26,8 +26,7 @@ const Header = () => {
 
           <li>
             <NavLink to="/Betala" className="cartIcon">
-              Betala
-              <span className={"cartAmount"}> {isCartItems.length}</span>
+              Betala<span className={"cartAmount"}>{isCartItems.length}</span>
             </NavLink>
           </li>
         </ul>

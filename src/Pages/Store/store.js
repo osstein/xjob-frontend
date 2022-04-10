@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const Store = () => {
   require("./store.css");
@@ -121,7 +121,7 @@ const Store = () => {
         <nav className="catalog-nav">
           <div>
             <h3>
-              <NavLink to="/handla">Visa alla</NavLink>
+              <Link to="/handla" activeClassName ="Selected">Visa alla</Link>
             </h3>
           </div>
           {isActiveCategories.map((item) => (
