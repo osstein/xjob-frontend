@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import CartContext from "../CartContext";
 import Notify from "./notification.js";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
   const { isCartItems } = useContext(CartContext);
   return (
     <header>
       <h1>
-        <NavLink to="/">BashPodden</NavLink>
+        <Link to="/">BashPodden</Link>
       </h1>
 
       <nav>

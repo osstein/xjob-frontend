@@ -8,6 +8,7 @@ const Store = () => {
   const [isProducts, setProducts] = useState([]);
   const [isCategories, setCategories] = useState([]);
   const [isImages, setImages] = useState([]);
+  const [isProductSort, setProductSort] = useState("");
 
   //Get products
   const getProducts = () => {
@@ -39,11 +40,10 @@ const Store = () => {
         });
         const data = await response.json();
         setCategories(data);
-        
+
         if (!response.ok) {
           throw new Error(response.statusText);
         }
-        
       } catch (e) {
         console.log(`Error: ${e}`);
       }
@@ -111,17 +111,19 @@ const Store = () => {
   }, [CategoryId]);
 
   useEffect(() => {
-    activeCategories()
+    activeCategories();
   }, [isCategories]);
 
   return (
     <main>
       <aside className={"catalog"}>
-        <h2  >Kategorier</h2>
+        <h2>Kategorier</h2>
         <nav className="catalog-nav">
           <div>
             <h3>
-              <Link to="/handla" activeClassName ="Selected">Visa alla</Link>
+              <Link to="/handla">
+                Visa alla
+              </Link>
             </h3>
           </div>
           {isActiveCategories.map((item) => (
@@ -136,6 +138,14 @@ const Store = () => {
           ))}
         </nav>
       </aside>
+      <section className="store-filter">
+<h3>Filter:</h3>
+      <span onClick={() => setProductSort("name_asc")} className={ isProductSort === "name_asc" ? "active" : ""} >A-Ö</span>
+      <span onClick={() => setProductSort("name_desc")} className={ isProductSort === "name_desc" ? "active" : ""} >Ö-A</span>
+      <span onClick={() => setProductSort("price_asc")} className={ isProductSort === "price_asc" ? "active" : ""} >$ Upp</span>
+      <span onClick={() => setProductSort("price_desc")} className={ isProductSort === "price_desc" ? "active" : ""} >$ Ner</span>
+
+      </section>
       <section className={"main-section"}>
         <h2>Produkter</h2>
         {isProducts
@@ -148,7 +158,31 @@ const Store = () => {
               return "";
             }
           })
-          /* .sort((a, b) => b.price - a.price) */
+          .sort((a, b) => {
+            switch (isProductSort) {
+              case "price_asc":
+                if (a.price < b.price) {
+                  return -1;
+                }
+                break;
+              case "price_desc":
+                if (a.price > b.price) {
+                  return -1;
+                }
+                break;
+              case "name_desc":
+                if (a.name > b.name) {
+                  return -1;
+                }
+                break;
+              default:
+                if (a.name < b.name) {
+                  return -1;
+                }
+                break;
+            }
+            return "";
+          })
           .map((item) => (
             <NavLink key={item.id} className="linkStoreItem" to={"/Produkt/" + item.id}>
               <article className="StoreItem">
