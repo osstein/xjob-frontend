@@ -1,12 +1,19 @@
 import HeaderImage from "../../Assets/headerbashmoreplash.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import NewsArticle from "./readmore";
 import { NavLink } from "react-router-dom";
 import { LightgalleryItem } from "react-lightgallery";
+import NotificationContext from "../../NotificationContext";
+
 const Home = () => {
   require("./home.css");
 
+  const { NewNotification } = useContext(NotificationContext);
+
   const [isNews, setNews] = useState([]);
+  const [isName, setName] = useState();
+  const [isEmail, setEmail] = useState();
+  const [isMessage, setMessage] = useState();
 
   //Get productsTypes
   const getNews = () => {
@@ -27,6 +34,32 @@ const Home = () => {
       }
     };
     fetchTasting(fetchPath);
+  };
+
+  const sendMail = () => {
+    if (isName !== undefined && isEmail !== undefined && isMessage !== undefined) {
+      let formData = JSON.stringify({
+        Name: isName,
+        Email: isEmail,
+        Message: isMessage,
+      });
+
+      let url = `https://localhost:7207/api/APIContactform`;
+      fetch(url, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .then(NewNotification("TACK! " + isName + ", ditt meddelande är skickat"))
+        .then(document.getElementById("checkout-form").reset())
+        .catch((res) => console.log(res));
+    } else {
+      NewNotification("Alla fält måste vara ifyllda");
+    }
   };
 
   useEffect(() => {
@@ -80,6 +113,46 @@ const Home = () => {
           <article className="frontpage-part">
             <h3>Kontakta BashPodden</h3>
             <p>Vill du komma i kontakt med BashPodden?</p>
+            <form className="contact-form">
+              <label>
+                Namn:
+                <br />
+                <input
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  type="text"
+                />
+              </label>
+
+              <label>
+                Din E-post:
+                <br />
+                <input
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  type="text"
+                />
+              </label>
+
+              <label>
+                Meddelande:
+                <br />
+                <textarea
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                  }}
+                />
+              </label>
+              <input
+                type={"button"}
+                value="Skicka"
+                onClick={(e) => {
+                  sendMail(e);
+                }}
+              />
+            </form>
           </article>
         </section>
         <section>
@@ -95,7 +168,7 @@ const Home = () => {
             })
             .slice(0, 5)
             .map((news) => {
-              if (q < 5) {
+              if (q < 4) {
                 q++;
                 return (
                   <NewsArticle

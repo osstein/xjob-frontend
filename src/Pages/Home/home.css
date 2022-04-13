@@ -80,6 +80,30 @@ h2.main-header {
   margin-top: 5px;
 }
 
+.contact-form {
+width: 100%;
+}
+.contact-form label{
+  margin-top: 10px;display: block;
+  }
+
+.contact-form textarea, .contact-form input[type="text"] {
+  width: 100%;
+}
+
+.contact-form input[type="button"] {
+  width: 30%;
+  min-width: 120px;
+  margin-left: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 300px;
+}
+
 @media (max-width: 1600px) {
   .frontpage-part {
     max-width: 500px;
