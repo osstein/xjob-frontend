@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import CartContext from "../../CartContext";
+import { LightgalleryItem } from "react-lightgallery";
 
 const Product = () => {
   require("./product.css");
@@ -203,12 +204,15 @@ const Product = () => {
               {isImages.map((img) => {
                 if (img.productId === isProduct.id) {
                   return (
+                    <LightgalleryItem src={"https://localhost:7207/" + img.imagePath}>
                     <img
                       key={img.id}
                       className="main-image-img"
                       src={"https://localhost:7207/" + img.imagePath}
                       alt={img.imageAlt}
                     />
+                  </LightgalleryItem>
+                   
                   );
                 } else {
                   return "";
@@ -232,7 +236,7 @@ const Product = () => {
                   return (
                     <img
                       key={img.id}
-                      onMouseOver={() => setScrollImage(i * 500)}
+                      onClick={() => setScrollImage(i * 500)}
                       src={"https://localhost:7207/" + img.imagePath}
                       alt={img.imageAlt}
                     />

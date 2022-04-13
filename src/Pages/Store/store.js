@@ -9,6 +9,7 @@ const Store = () => {
   const [isCategories, setCategories] = useState([]);
   const [isImages, setImages] = useState([]);
   const [isProductSort, setProductSort] = useState("");
+  const [isSearchString, setSearchString] = useState("");
 
   //Get products
   const getProducts = () => {
@@ -121,9 +122,7 @@ const Store = () => {
         <nav className="catalog-nav">
           <div>
             <h3>
-              <Link to="/handla">
-                Visa alla
-              </Link>
+              <Link to="/handla">Visa alla</Link>
             </h3>
           </div>
           {isActiveCategories.map((item) => (
@@ -139,12 +138,35 @@ const Store = () => {
         </nav>
       </aside>
       <section className="store-filter">
-<h3>Filter:</h3>
-      <span onClick={() => setProductSort("name_asc")} className={ isProductSort === "name_asc" ? "active" : ""} >A-Ö</span>
-      <span onClick={() => setProductSort("name_desc")} className={ isProductSort === "name_desc" ? "active" : ""} >Ö-A</span>
-      <span onClick={() => setProductSort("price_asc")} className={ isProductSort === "price_asc" ? "active" : ""} >$ Upp</span>
-      <span onClick={() => setProductSort("price_desc")} className={ isProductSort === "price_desc" ? "active" : ""} >$ Ner</span>
-
+        <div className="sorting"><h3>Sortering:</h3>
+        <span
+          onClick={() => setProductSort("name_asc")}
+          className={isProductSort === "name_asc" ? "active" : ""}
+        >
+          A-Ö
+        </span>
+        <span
+          onClick={() => setProductSort("name_desc")}
+          className={isProductSort === "name_desc" ? "active" : ""}
+        >
+          Ö-A
+        </span>
+        <span
+          onClick={() => setProductSort("price_asc")}
+          className={isProductSort === "price_asc" ? "active" : ""}
+        >
+          $ Upp
+        </span>
+        <span
+          onClick={() => setProductSort("price_desc")}
+          className={isProductSort === "price_desc" ? "active" : ""}
+        >
+          $ Ner
+        </span></div>
+        <div>
+          <h3>Sök:</h3>
+          <input onChange={(e) => setSearchString(e.target.value) } />
+        </div>
       </section>
       <section className={"main-section"}>
         <h2>Produkter</h2>
@@ -153,6 +175,15 @@ const Store = () => {
             if (CategoryId === undefined) {
               return q;
             } else if (q.catalogSubCategoriesId.toString() === CategoryId) {
+              return q;
+            } else {
+              return "";
+            }
+          })
+          .filter((q) => {
+            if (isSearchString === "") {
+              return q;
+            } else if (q.name.toLowerCase().includes(isSearchString.toLowerCase())) {
               return q;
             } else {
               return "";

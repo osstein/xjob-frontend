@@ -39,6 +39,7 @@ main {
   object-fit: cover;
   object-position: center;
   flex-grow: 1;
+  cursor: pointer;
 }
 
 .thumbnails::-webkit-scrollbar-track {
@@ -75,6 +76,7 @@ main {
   width: 500px;
   object-fit: cover;
   object-position: center;
+  cursor: pointer;
 }
 .product-about {
   min-height: 500px;

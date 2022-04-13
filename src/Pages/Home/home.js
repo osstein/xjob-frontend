@@ -2,7 +2,7 @@ import HeaderImage from "../../Assets/headerbashmoreplash.jpg";
 import { useEffect, useState } from "react";
 import NewsArticle from "./readmore";
 import { NavLink } from "react-router-dom";
-
+import { LightgalleryItem } from "react-lightgallery";
 const Home = () => {
   require("./home.css");
 
@@ -39,7 +39,9 @@ const Home = () => {
   return (
     <main>
       <div className="header-image">
-        <img src={HeaderImage} alt="Header fish " />
+        <LightgalleryItem src={HeaderImage}>
+          <img src={HeaderImage} alt="Header fish " />
+        </LightgalleryItem>
       </div>
       <div className="front-display">
         <section>
@@ -81,9 +83,9 @@ const Home = () => {
           </article>
         </section>
         <section>
-          <NavLink to="/Nyheter" className="newsHeader"><h2 >
-              Nyheter</h2>
-            </NavLink>
+          <NavLink to="/Nyheter" className="newsHeader">
+            <h2>Nyheter</h2>
+          </NavLink>
           {isNews
             .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
             .filter((a) => {
@@ -96,7 +98,8 @@ const Home = () => {
               if (q < 5) {
                 q++;
                 return (
-                  <NewsArticle key={news.id}
+                  <NewsArticle
+                    key={news.id}
                     title={news.title}
                     content={news.content}
                     imagePath={news.imagePath}

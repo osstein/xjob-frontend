@@ -102,6 +102,10 @@ main {
   width: 100%;
 }
 
+.sorting span {
+  margin: 0px 5px;
+}
+
 .StoreItem {
   width: 300px;
   align-items: flex-start;

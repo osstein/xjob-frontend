@@ -67,12 +67,13 @@ const News = () => {
       <div className="flex-div-row">
         <section className="news-reader">
           <h2>Nyheter</h2>
-          <h3>{isActive.title}</h3>
+
           {isActive.imagePath ? (
             <img src={"https://localhost:7207/" + isActive.imagePath} alt={isActive.imageAlt} />
           ) : (
             ""
           )}
+          <h3>{isActive.title}</h3>
           <p>{isActive.content}</p>
         </section>
 
@@ -95,7 +96,7 @@ const News = () => {
                   }}
                   key={n.id}
                 >
-                  <div className="news-structure"> 
+                  <div className="news-structure">
                     <img
                       className="news-thumbnail"
                       src={"https://localhost:7207/" + n.imagePath}
@@ -106,7 +107,9 @@ const News = () => {
                       <p>{n.content.substring(0, 30)}...</p>
                     </div>
                   </div>
-                  <p className="news-timestamp" style={{ textAlign: "right" }}>{n.timestamp.substring(0, 10)}</p>
+                  <p className="news-timestamp" style={{ textAlign: "right" }}>
+                    {n.timestamp.substring(0, 10)}
+                  </p>
                 </article>
               );
             })}
