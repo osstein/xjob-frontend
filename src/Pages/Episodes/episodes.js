@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
 const Episodes = () => {
+  // Get CSS
   require("./episodes.css");
-
+  // States
   const [isEpisode, setEpisode] = useState([]);
   const [isActive, setActive] = useState({ filePath: "", description: "Beskrivning" });
 
-  //Get productsTypes
+  //Get episodes
   const getEpisode = () => {
     let fetchPath = "https://localhost:7207/api/apiepisode/";
     const fetchTasting = async (url) => {
@@ -28,10 +29,13 @@ const Episodes = () => {
     fetchTasting(fetchPath);
   };
 
+  // Run once
+
   useEffect(() => {
     getEpisode();
   }, []);
 
+  // State for open close
   const [isReadMore, setReadMore] = useState(false);
 
   return (

@@ -5,11 +5,13 @@ import { IoChevronDownCircleSharp } from "react-icons/io5";
 import { IoChevronUpCircleSharp } from "react-icons/io5";
 import NotificationContext from "../../NotificationContext";
 const Checkout = () => {
+  //Get CSS
   require("./checkout.css");
+  // Get contexts
   const { isCartItems, isCartVat, isCartPrice, isCartDiscount, removeCart, clearCart, adjustCart } =
     useContext(CartContext);
   const { NewNotification } = useContext(NotificationContext);
-
+  //States
   const [isFirstName, setFirstName] = useState();
   const [isLastName, setLastName] = useState();
   const [isEmail, setEmail] = useState();
@@ -20,10 +22,11 @@ const Checkout = () => {
   const [isDiscountCode, setDiscountCode] = useState("");
   const [isPaymentMethod, setPaymentMethod] = useState();
 
-  // Update recipe
+  // Send order
   const sendOrder = () => {
     if (isCartItems.length > 0) {
       if (
+        //Check all fields
         isFirstName !== undefined &&
         isLastName !== undefined &&
         isEmail !== undefined &&
@@ -32,6 +35,7 @@ const Checkout = () => {
         isZip !== undefined &&
         isCity !== undefined
       ) {
+        //Set Json objekt
         let formData = JSON.stringify({
           Order: {
             CustomerFirstName: isFirstName,
@@ -46,7 +50,7 @@ const Checkout = () => {
           },
           OrderProducts: JSON.parse(localStorage.getItem("Shopping")),
         });
-
+        // Send fetch Post
         let url = `https://localhost:7207/api/apiorder`;
         fetch(url, {
           method: "POST",
@@ -70,10 +74,11 @@ const Checkout = () => {
       NewNotification("Varukorgen är tom");
     }
   };
+  // States for discountcode
   const [isDC, setDC] = useState();
   const [isDCPercent, setDCPercent] = useState(0);
 
-  //Get productsTypes
+  //Get discount codes
   const getDC = () => {
     let fetchPath = "https://localhost:7207/api/apidiscountcodes/";
     const fetchTasting = async (url) => {
@@ -94,6 +99,7 @@ const Checkout = () => {
     fetchTasting(fetchPath);
   };
 
+  // Check discounts being valid
   const checkDiscount = (e) => {
     for (let i = 0; i < isDC.length; i++) {
       let campaignStart = new Date(isDC[i].campaignStart).getTime();
@@ -109,6 +115,8 @@ const Checkout = () => {
       }
     }
   };
+
+  // Run once
 
   useEffect(() => {
     getDC();

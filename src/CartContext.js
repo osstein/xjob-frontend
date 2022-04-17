@@ -4,19 +4,22 @@ import NotificationContext from "./NotificationContext";
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
+
+  // Cart States
   const [isCartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("Shopping")) || []);
   const [isCartPrice, setCartPrice] = useState();
   const [isCartVat, setCartVat] = useState();
   const [isCartDiscount, setCartDiscount] = useState();
   const { NewNotification } = useContext(NotificationContext);
 
+  //Function fpr saving to local storage
   const store = () => {
     localStorage.setItem("Shopping", JSON.stringify(isCartItems));
     calcPrice();
     calcDiscount();
     calcVat();
   };
-
+// Calculate price total
   const calcPrice = () => {
     let tot = 0;
     for (let i = 0; i < isCartItems.length; i++) {
@@ -24,6 +27,7 @@ export function CartProvider({ children }) {
     }
     setCartPrice(tot);
   };
+  // Calculate VAT total
   const calcVat = () => {
     let tot = 0;
     for (let i = 0; i < isCartItems.length; i++) {
@@ -34,6 +38,7 @@ export function CartProvider({ children }) {
     }
     setCartVat(tot);
   };
+  // Calculate discounts
   const calcDiscount = () => {
     let tot = 0;
 
@@ -45,7 +50,8 @@ export function CartProvider({ children }) {
     }
     setCartDiscount(tot);
   };
-
+// Add item to cart
+// If item exist increase amount else add new item
   const addItem = (
     name,
     productId,
@@ -60,7 +66,6 @@ export function CartProvider({ children }) {
   ) => {
     //Set initial
     setCartItems(JSON.parse(localStorage.getItem("Shopping")));
-    // Sätt förtsta item alt. höj antalet om objektet redan finns alt. lägg till objektet i listan
     let o = 0;
     let cart = isCartItems;
     console.log(isCartItems);
@@ -112,8 +117,8 @@ export function CartProvider({ children }) {
       o = 0;
     }
 
-    // Lagra i localstorage
-    console.log(isCartItems);
+    // Save in localstorage
+    
     localStorage.setItem("Shopping", JSON.stringify(isCartItems));
     calcPrice();
     calcDiscount();
@@ -121,10 +126,13 @@ export function CartProvider({ children }) {
     NewNotification(name + " tillagd");
   };
 
+  // Store when cart items change
   useEffect(() => {
     store();
   }, [isCartItems]);
 
+
+  // Clear the cart totally
   const clearCart = () => {
     setCartItems([]);
     setCartVat(0);
@@ -134,6 +142,7 @@ export function CartProvider({ children }) {
     NewNotification("Varukorgen är tom");
   };
 
+  //Increase / decrease amount on product
   const adjustCart = (typeId, productId, change) => {
     let cart = isCartItems;
 
@@ -159,6 +168,7 @@ export function CartProvider({ children }) {
 
     store();
   };
+  // Remove item from cart
   const removeCart = (typeId, productId) => {
     let cart = isCartItems;
     for (let i = 0; i < isCartItems.length; i++) {
@@ -171,7 +181,7 @@ export function CartProvider({ children }) {
     store();
     NewNotification("Produkt borttagen");
   };
-
+// Export functions and states
   return (
     <CartContext.Provider
       value={{

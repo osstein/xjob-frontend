@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 
 const News = () => {
+  // Get CSS
   require("./news.css");
-
+  // States
   const [isNews, setNews] = useState([]);
   const [isActive, setActive] = useState({
     title: "",
@@ -32,11 +33,12 @@ const News = () => {
     };
     fetchTasting(fetchPath);
   };
-
+  // Run once
   useEffect(() => {
     getNews();
   }, []);
 
+  //Page functionality
   function changePage(e) {
     if (e === "Prev") {
       if (isPage === 0) {

@@ -6,16 +6,17 @@ import { LightgalleryItem } from "react-lightgallery";
 import NotificationContext from "../../NotificationContext";
 
 const Home = () => {
+  // Get CSS
   require("./home.css");
-
+// Get Context
   const { NewNotification } = useContext(NotificationContext);
-
+// States
   const [isNews, setNews] = useState([]);
   const [isName, setName] = useState();
   const [isEmail, setEmail] = useState();
   const [isMessage, setMessage] = useState();
 
-  //Get productsTypes
+  //Get News
   const getNews = () => {
     let fetchPath = "https://localhost:7207/api/apinews/";
     const fetchTasting = async (url) => {
@@ -36,6 +37,8 @@ const Home = () => {
     fetchTasting(fetchPath);
   };
 
+
+  // Send email by API
   const sendMail = () => {
     if (isName !== undefined && isEmail !== undefined && isMessage !== undefined) {
       let formData = JSON.stringify({
@@ -62,6 +65,8 @@ const Home = () => {
     }
   };
 
+
+  // Run once
   useEffect(() => {
     getNews();
   }, []);

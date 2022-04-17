@@ -3,9 +3,11 @@ import { createContext, useState } from "react";
 const NotifyContext = createContext();
 
 export function NotifyProvider({ children }) {
+  // States
   const [isNotifications, setNotifications] = useState("");
   const [isCount, setCount] = useState(0);
 
+  // New notification to module
   const NewNotification = (message) => {
     setNotifications(message);
     setCount(isCount + 1);

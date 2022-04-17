@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 const Store = () => {
+  // Get CSS
   require("./store.css");
+  // Get category parameter
   let { CategoryId } = useParams();
+  // States
   const [isProducts, setProducts] = useState([]);
   const [isCategories, setCategories] = useState([]);
   const [isImages, setImages] = useState([]);
@@ -31,7 +34,8 @@ const Store = () => {
     };
     fetchTasting(fetchPath);
   };
-  //Get products
+
+  //Get categories
   const getCategories = () => {
     let fetchPath = "https://localhost:7207/api/APICatalogCategories";
     const fetchTasting = async (url) => {
@@ -51,7 +55,7 @@ const Store = () => {
     };
     fetchTasting(fetchPath);
   };
-  //Get products
+  //Get images
   const getImages = () => {
     let fetchPath = "https://localhost:7207/api/APIProductImages";
     const fetchTasting = async (url) => {
@@ -70,10 +74,13 @@ const Store = () => {
     };
     fetchTasting(fetchPath);
   };
+  // States for filtering the catalog from categories whitout active products
   const [isLoadedTrue, setLoadedTrue] = useState(false);
   const [isActiveCategories, setActiveCategories] = useState([
     { id: 0, category: "", subCategory: [{ id: 0, category: "" }] },
   ]);
+
+  // Filter from categories that do not have any products
   const activeCategories = () => {
     if (isLoadedTrue === false) {
       for (let i = 0; i < isCategories.length; i++) {
@@ -104,13 +111,14 @@ const Store = () => {
       }
     }
   };
-
+// Run when category ID changes
   useEffect(() => {
     getProducts();
     getCategories();
     getImages();
   }, [CategoryId]);
 
+  // Run when categories change
   useEffect(() => {
     activeCategories();
   }, [isCategories]);

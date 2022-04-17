@@ -4,14 +4,18 @@ import CartContext from "../../CartContext";
 import { LightgalleryItem } from "react-lightgallery";
 
 const Product = () => {
+  // Get CSS
   require("./product.css");
+  // Context
   const { addItem } = useContext(CartContext);
-
+// Get product if from URL
   let { ProductId } = useParams();
   let param = "";
   if (ProductId !== undefined) {
     param = ProductId;
   }
+
+  // States
   const [isButtonActive, setButtonActive] = useState(true);
   const [isProduct, setProduct] = useState([]);
   const [isColors, setColors] = useState([]);
@@ -19,6 +23,8 @@ const Product = () => {
   const [isImages, setImages] = useState([]);
   const [isTypes, setTypes] = useState([]);
   const [isProps, setProps] = useState([]);
+  
+  
   //Get productsTypes
   const getTypes = () => {
     let fetchPath = "https://localhost:7207/api/apiproducttype/";
@@ -39,7 +45,9 @@ const Product = () => {
       }
     };
     fetchCall(fetchPath);
-  }; //Get productsImages
+  }; 
+  
+  //Get productsImages
   const getImages = () => {
     let fetchPath = "https://localhost:7207/api/apiproductImages/";
     const fetchCall = async (url) => {
@@ -59,6 +67,7 @@ const Product = () => {
     };
     fetchCall(fetchPath);
   };
+  
   //Get productscolors
   const getColors = () => {
     let fetchPath = "https://localhost:7207/api/apiproductcolor/";
@@ -79,6 +88,7 @@ const Product = () => {
     };
     fetchCall(fetchPath);
   };
+  
   //Get productsizes
   const getSizes = () => {
     let fetchPath = "https://localhost:7207/api/apiproductsize/";
@@ -99,6 +109,7 @@ const Product = () => {
     };
     fetchCall(fetchPath);
   };
+  
   //Get products
   const getProduct = () => {
     let fetchPath = "https://localhost:7207/api/apiproduct/" + param;
@@ -119,6 +130,7 @@ const Product = () => {
     };
     fetchCall(fetchPath);
   };
+  
   //Get productproperties
   const getProps = () => {
     let fetchPath = "https://localhost:7207/api/APIProductProperties/";
@@ -140,6 +152,7 @@ const Product = () => {
     fetchCall(fetchPath);
   };
 
+  // Run when product id changes
   useEffect(() => {
     getImages();
     getProduct();
@@ -149,6 +162,7 @@ const Product = () => {
     getProps();
   }, [ProductId]);
 
+  // Is selected product states
   const [isScrollImage, setScrollImage] = useState(0);
   const [isSelectSize, setSelectSize] = useState();
   const [isSelectColor, setSelectColor] = useState();
@@ -156,7 +170,7 @@ const Product = () => {
   const [isSelectAmount, setSelectAmount] = useState(0);
   const [isAvailable, setAvailable] = useState(0);
 
-  //Controll på produktid med
+  // Set the selected item
   function setSC(e) {
     for (let i = 0; i < isTypes.length; i++) {
       if (isTypes[i].id.toString() === e.toString()) {
@@ -178,9 +192,12 @@ const Product = () => {
     }
   }
 
+  // Filter out of selected color
   const [isColorFilter, setColorFilter] = useState(0);
   let ColorFilterArray = [];
 
+
+  // Show hide add to cart button
   const setBuyButton = (e) => {
     if (e <= 0) {
       setButtonActive(true);
