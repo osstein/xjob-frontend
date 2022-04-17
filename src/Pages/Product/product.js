@@ -130,8 +130,6 @@ const Product = () => {
         const data = await response.json();
 
         setProps(data);
-        console.log(data);
-        console.log(isProps);
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -204,9 +202,9 @@ const Product = () => {
               {isImages.map((img) => {
                 if (img.productId === isProduct.id) {
                   return (
-                    <LightgalleryItem src={"https://localhost:7207/" + img.imagePath}>
+                    <LightgalleryItem key={img.id} group="product-images" src={"https://localhost:7207/" + img.imagePath}>
                     <img
-                      key={img.id}
+                      
                       className="main-image-img"
                       src={"https://localhost:7207/" + img.imagePath}
                       alt={img.imageAlt}

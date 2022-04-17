@@ -5,6 +5,8 @@ const Notify = () => {
   require("./notification.css");
   const { isNotifications, isCount, setNotifications } = useContext(NotificationContext);
 
+window.onload = () => {document.getElementById("message").classList.add("closed-message");}
+
   const showNotify = () => {
     let message = document.getElementById("message");
     message.classList.remove("closed-message");

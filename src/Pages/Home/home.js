@@ -72,7 +72,7 @@ const Home = () => {
   return (
     <main>
       <div className="header-image">
-        <LightgalleryItem src={HeaderImage}>
+        <LightgalleryItem group="Header-image" src={HeaderImage}>
           <img src={HeaderImage} alt="Header fish " />
         </LightgalleryItem>
       </div>
