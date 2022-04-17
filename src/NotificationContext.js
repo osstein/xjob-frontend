@@ -12,7 +12,7 @@ export function NotifyProvider({ children }) {
     setNotifications(message);
     setCount(isCount + 1);
   };
-
+// Export states and functions
   return (
     <NotifyContext.Provider
       value={{
