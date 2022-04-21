@@ -27,7 +27,6 @@ function App() {
               <Route exact path="Nyheter" element={<News />}></Route>
               <Route exact path="Betala" element={<Checkout />}></Route>
               <Route exact path="Produkt/:ProductId" element={<Product />}></Route>
-              {/* <Route path="/recipe/:recipeid" element={<Recipe />}></Route> */}
             </Routes>
             <Footer />
           </CartProvider>

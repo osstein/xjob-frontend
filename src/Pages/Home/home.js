@@ -8,9 +8,9 @@ import NotificationContext from "../../NotificationContext";
 const Home = () => {
   // Get CSS
   require("./home.css");
-// Get Context
+  // Get Context
   const { NewNotification } = useContext(NotificationContext);
-// States
+  // States
   const [isNews, setNews] = useState([]);
   const [isName, setName] = useState();
   const [isEmail, setEmail] = useState();
@@ -36,7 +36,6 @@ const Home = () => {
     };
     fetchTasting(fetchPath);
   };
-
 
   // Send email by API
   const sendMail = () => {
@@ -64,7 +63,6 @@ const Home = () => {
       NewNotification("Alla fält måste vara ifyllda");
     }
   };
-
 
   // Run once
   useEffect(() => {
@@ -171,23 +169,18 @@ const Home = () => {
                 return a;
               } else return "";
             })
-            .slice(0, 5)
+            .slice(0, 4)
             .map((news) => {
-              if (q < 4) {
-                q++;
-                return (
-                  <NewsArticle
-                    key={news.id}
-                    title={news.title}
-                    content={news.content}
-                    imagePath={news.imagePath}
-                    imageAlt={news.imageAlt}
-                    date={news.timestamp}
-                  />
-                );
-              } else {
-                return "";
-              }
+              return (
+                <NewsArticle
+                  key={news.id}
+                  title={news.title}
+                  content={news.content}
+                  imagePath={news.imagePath}
+                  imageAlt={news.imageAlt}
+                  date={news.timestamp}
+                />
+              );
             })}
         </section>
       </div>
