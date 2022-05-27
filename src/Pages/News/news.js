@@ -115,22 +115,26 @@ const News = () => {
                 </article>
               );
             })}
-          <div className="flex-div-row-np">
-            <p
-              onClick={() => {
-                changePage("Prev");
-              }}
-            >
-              Föregående sida
-            </p>
-            <p
-              onClick={() => {
-                changePage("Next");
-              }}
-            >
-              Nästa sida
-            </p>
-          </div>
+          {isNews.length > 5 ? (
+            <div className="flex-div-row-np">
+              <p
+                onClick={() => {
+                  changePage("Prev");
+                }}
+              >
+                Föregående sida
+              </p>
+              <p
+                onClick={() => {
+                  changePage("Next");
+                }}
+              >
+                Nästa sida
+              </p>
+            </div>
+          ) : (
+            ""
+          )}
         </section>
       </div>
     </main>
